@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Date</key><date>2021-08-27T17:03:29Z</date>
+	<key>Application Version</key><string>1.1.6.32</string>
+	<key>Features</key><integer>5</integer>
+	<key>Show Content Ratings</key><true/>
+	<key>Music Folder</key><string>file:///Users/rachelcope/Music/Music/Media.localized/</string>
+	<key>Library Persistent ID</key><string>EE9A21B2D7FB50E4</string>
+	<key>Tracks</key>
+	<dict>
+		<key>553</key>
+		<dict>
+			<key>Track ID</key><integer>553</integer>
+			<key>Name</key><string>My Immortal (Band Version)</string>
+			<key>Artist</key><string>Evanescence</string>
+			<key>Album Artist</key><string>Evanescence</string>
+			<key>Album</key><string>Fallen</string>
+			<key>Genre</key><string>Hard Rock</string>
+			<key>Kind</key><string>Protected AAC audio file</string>
+			<key>Size</key><integer>4612824</integer>
+			<key>Total Time</key><integer>273360</integer>
+			<key>Disc Number</key><integer>1</integer>
+			<key>Disc Count</key><integer>1</integer>
+			<key>Track Number</key><integer>12</integer>
+			<key>Track Count</key><integer>12</integer>
+			<key>Year</key><integer>2003</integer>
+			<key>Date Modified</key><date>2021-08-24T13:44:43Z</date>
+			<key>Date Added</key><date>2007-02-26T00:27:49Z</date>
+			<key>Bit Rate</key><integer>128</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Release Date</key><date>2003-03-04T12:00:00Z</date>
+			<key>Normalization</key><integer>3998</integer>
+			<key>Sort Album</key><string>Fallen</string>
+			<key>Sort Artist</key><string>Evanescence</string>
+			<key>Sort Name</key><string>My Immortal (Band Version)</string>
+			<key>Persistent ID</key><string>E84E3CA775B79BFE</string>
+			<key>Track Type</key><string>File</string>
+			<key>Protected</key><true/>
+			<key>Purchased</key><true/>
+			<key>Location</key><string>file:///Users/rachelcope/Music/Music/Media.localized/Music/Evanescence/Fallen/12%20My%20Immortal%20(Band%20Version).m4p</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+	</dict>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Name</key><string>OneSongPlaylist</string>
+			<key>Description</key><string></string>
+			<key>Playlist ID</key><integer>962</integer>
+			<key>Playlist Persistent ID</key><string>30F625B16072B8CA</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key><integer>553</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

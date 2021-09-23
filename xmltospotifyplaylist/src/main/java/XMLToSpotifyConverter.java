@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Playlist;
 import models.PlaylistID;
 import models.TrackURI;
-import createandmodplaylist.AddItemToPlaylist;
-import createandmodplaylist.CreateNewPlaylist;
-import createandmodplaylist.SearchItem;
+import spotifyapi.AddItemToPlaylist;
+import spotifyapi.CreateNewPlaylist;
+import spotifyapi.SearchItem;
 
 import java.io.IOException;
 import java.util.ArrayList;

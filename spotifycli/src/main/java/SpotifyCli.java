@@ -1,25 +1,18 @@
-import auth.ASubCommand;
+
+import auth.CommandAuthorization;
 import picocli.CommandLine;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(
-        subcommands = {ASubCommand.class},
+        subcommands = {CommandAuthorization.class},
         name = "myapp",
         mixinStandardHelpOptions = true,
         version = "1.0")
-class SpotifyCli implements Callable<Integer> {
 
-    @CommandLine.Option(names = "-x")
-    boolean x;
+class SpotifyCli implements Callable<Integer> {
 
     @Override
     public Integer call() { // business logic
-        if (x) {
-            System.out.print(x);
-        } else {
-            System.out.print("https://www.google.com/ ");
-        }
-
         return 123;
     }
 
@@ -27,4 +20,5 @@ class SpotifyCli implements Callable<Integer> {
         System.exit(new CommandLine(new SpotifyCli()).execute(args));
     }
 }
+
 

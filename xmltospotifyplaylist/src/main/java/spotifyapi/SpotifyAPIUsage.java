@@ -1,4 +1,4 @@
-package createandmodplaylist;
+package spotifyapi;
 
 public abstract class SpotifyAPIUsage {
     String OAUTH_TOKEN =

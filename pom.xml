@@ -10,8 +10,6 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>xmltospotifyplaylist</module>
-        <module>oauth</module>
-        <module>oauth</module>
         <module>spotifycli</module>
     </modules>
 

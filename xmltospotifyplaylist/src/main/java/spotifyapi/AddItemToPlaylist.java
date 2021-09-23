@@ -1,6 +1,4 @@
-package createandmodplaylist;
-
-import models.Playlist;
+package spotifyapi;
 
 import java.io.IOException;
 import java.net.URI;
@@ -9,16 +7,18 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-public class CreateNewPlaylist extends SpotifyAPIUsage {
+public class AddItemToPlaylist extends SpotifyAPIUsage{
 
-    public String createNewPlaylist(Playlist playlist, String jsonPlaylist) throws IOException, InterruptedException {
+    public String addItemToPlaylist(String jsonTrackURIs, String playlistID) throws IOException, InterruptedException {
+
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.spotify.com/v1/users/1287343652/playlists"))
-                .header("Authorization", OAUTH_TOKEN)
+                .uri(URI.create("https://api.spotify.com/v1/playlists/" + playlistID + "/tracks"))
+                .headers("Authorization", OAUTH_TOKEN,
+                         "Content-Type", "application/json")
                 .POST(HttpRequest
                         .BodyPublishers
-                        .ofString(jsonPlaylist))
+                        .ofString(jsonTrackURIs))
                 .build();
 
         HttpClient client = HttpClient.newBuilder()
@@ -29,8 +29,9 @@ public class CreateNewPlaylist extends SpotifyAPIUsage {
 
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
-
+        return response.statusCode() + response.body();
 
     }
+
+
 }

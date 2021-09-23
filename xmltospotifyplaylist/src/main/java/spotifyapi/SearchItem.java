@@ -1,4 +1,4 @@
-package createandmodplaylist;
+package spotifyapi;
 
 import models.Track;
 import utility.Utils;

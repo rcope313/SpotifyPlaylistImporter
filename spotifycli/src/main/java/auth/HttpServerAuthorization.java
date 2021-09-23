@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HttpServerAuthorization {
 
-    ServerConfiguration config;
+    public ServerConfiguration config;
 
     public HttpServerAuthorization() {
          config = new ServerConfiguration("localhost", 2000, "/authorize", 60);

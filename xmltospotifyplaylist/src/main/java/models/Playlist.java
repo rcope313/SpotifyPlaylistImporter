@@ -15,8 +15,6 @@ public class Playlist {
         this.isPublic = isPublic;
     }
 
-
-
     @JsonGetter("public")
     public boolean getThePublic () {
         return isPublic;

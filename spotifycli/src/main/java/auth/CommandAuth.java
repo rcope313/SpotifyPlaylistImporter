@@ -1,24 +1,25 @@
 package auth;
 
-import config.ClientConfiguration;
+import config.ClientConfig;
+import config.GetAccessAndRefreshTokensResponseConfig;
 import picocli.CommandLine;
 import java.io.IOException;
 
 
 @CommandLine.Command(name = "auth")
-public class CommandAuthorization implements Runnable {
+public class CommandAuth implements Runnable {
 
-    final ClientConfiguration clientConfiguration;
-    final HttpServerAuthorization httpServerAuthorization;
+    final ClientConfig clientConfig;
+    final HttpServerAuth httpServerAuth;
 
-    public CommandAuthorization() {
-        this.clientConfiguration = new ClientConfiguration(
+    public CommandAuth() {
+        this.clientConfig = new ClientConfig(
                 "https://accounts.spotify.com/authorize",
                 "58f5ea655fc64389ae8f53047aa14201",
                 "code",
                 "playlist-modify-private"
         );
-        this.httpServerAuthorization = new HttpServerAuthorization();
+        this.httpServerAuth = new HttpServerAuth();
     }
 
 
@@ -37,14 +38,17 @@ public class CommandAuthorization implements Runnable {
         System.exit(0);
     }
 
+
     private void handleRedirectUri() {
-        httpServerAuthorization.start();
+       httpServerAuth.start();
+
+
 
     }
 
     private void displayAuthUrl() throws IOException, InterruptedException {
         System.out.println("Click on the link to start authentication:\n");
-        System.out.println(clientConfiguration.generateAuthUri(httpServerAuthorization.config.getRedirectUri()));
+        System.out.println(clientConfig.generateAuthUri(httpServerAuth.serverConfiguration.getRedirectUri()));
     }
 }
 

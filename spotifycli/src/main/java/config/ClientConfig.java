@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Random;
 
-final public class ClientConfiguration {
+final public class ClientConfig {
     private String url;
     private String clientId;
     private String responseType;
     private String scope;
 
-    public ClientConfiguration(String url, String clientId, String responseType, String scope) {
+    public ClientConfig(String url, String clientId, String responseType, String scope) {
         this.url = url;
         this.clientId = clientId;
         this.responseType = responseType;

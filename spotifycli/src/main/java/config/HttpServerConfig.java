@@ -1,12 +1,12 @@
 package config;
 
-final public class ServerConfiguration {
+final public class HttpServerConfig {
     private String host;
     private int port;
     private String context;
     private int timeout;
 
-    public ServerConfiguration (String host, int port, String context, int timeout) {
+    public HttpServerConfig(String host, int port, String context, int timeout) {
         this.host = host;
         this.port = port;
         this.context = context;

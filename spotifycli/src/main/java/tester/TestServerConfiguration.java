@@ -1,16 +1,13 @@
 package tester;
 
-import auth.HttpServerAuthorization;
-import config.ServerConfiguration;
-
-import java.io.IOException;
+import config.HttpServerConfig;
 
 public class TestServerConfiguration {
 
-    ServerConfiguration server1;
+    HttpServerConfig server1;
 
     void initData() {
-        server1 = new ServerConfiguration("localhost", 0, "/authorize", 60);
+        server1 = new HttpServerConfig("localhost", 0, "/authorize", 60);
 
     }
 

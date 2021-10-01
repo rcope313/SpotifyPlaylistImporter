@@ -32,6 +32,7 @@ public class HttpServerAuth {
                 try {
                     var response =
                             clientAuthorization.getAccessAndRefreshTokens();
+
                     TokenManager.setToken(response.accessToken);
 
                 } catch (InterruptedException e) {

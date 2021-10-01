@@ -1,15 +1,16 @@
 manager/TokenManager.class
 config/GetAccessAndRefreshTokensResponseConfig.class
+commands/ExecuteCommand.class
 models/TrackURI.class
 jackson/JsonDeserializePlaylist.class
 models/Playlist.class
+spotifyapi/AddItemToPlaylistAPI.class
+spotifyapi/SearchItemAPI.class
 config/HttpServerConfig.class
 config/GetAccessAndRefreshTokensRequestConfig.class
-spotifyapi/SearchItem.class
 commands/AuthCommand.class
 auth/SpotifyClientAuth.class
 config/ClientConfig.class
-spotifyapi/CreateNewPlaylist.class
 utility/Utils.class
 models/Track.class
 tester/TestClientConfiguration.class
@@ -20,7 +21,6 @@ SpotifyCli.class
 xmlparser/ReadXmlSaxParser.class
 xmlparser/ParseTester.class
 xmlparser/MapStaffObjectHandlerSax.class
+spotifyapi/CreateNewPlaylistAPI.class
 auth/HttpServerAuth.class
-spotifyapi/AddItemToPlaylist.class
-auth/CommandAuth.class
 jackson/JsonDeserializeItemSearchOutput.class

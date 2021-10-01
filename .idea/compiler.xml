@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="xmltospotifyplaylist" />
         <module name="spotifycli" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="oauth" target="14" />
       <module name="wrapper" target="1.5" />
+      <module name="xmltospotifyplaylist" target="14" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

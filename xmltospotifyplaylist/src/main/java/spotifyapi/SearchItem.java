@@ -1,5 +1,6 @@
 package spotifyapi;
 
+import manager.TokenManager;
 import models.Track;
 import utility.Utils;
 import xmlparser.ReadXmlSaxParser;
@@ -12,7 +13,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class SearchItem extends SpotifyAPIUsage {
+public class SearchItem {
 
     public SearchItem() {}
 
@@ -46,7 +47,7 @@ public class SearchItem extends SpotifyAPIUsage {
                         "track:'" + trackNameURL +
                         "'&type=track" +
                         "&limit=1"))
-                .header("Authorization", OAUTH_TOKEN)
+                .header("Authorization", TokenManager.getToken())
                 .GET()
                 .build();
 

@@ -19,7 +19,7 @@ public class HttpServerAuth {
 
     }
 
-    void start() {
+    public void start() {
 
         try {
             var latch = new CountDownLatch(1);

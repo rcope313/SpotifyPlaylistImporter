@@ -1,5 +1,6 @@
 package spotifyapi;
 
+import manager.TokenManager;
 import models.Playlist;
 
 import java.io.IOException;
@@ -9,13 +10,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-public class CreateNewPlaylist extends SpotifyAPIUsage {
+public class CreateNewPlaylist {
 
     public String createNewPlaylist(Playlist playlist, String jsonPlaylist) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.spotify.com/v1/users/1287343652/playlists"))
-                .header("Authorization", OAUTH_TOKEN)
+                .header("Authorization", TokenManager.getToken())
                 .POST(HttpRequest
                         .BodyPublishers
                         .ofString(jsonPlaylist))

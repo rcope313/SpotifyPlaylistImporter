@@ -1,0 +1,21 @@
+micronaut:
+  application:
+    name: spotifycli
+
+spotify:
+  api:
+    url: https://api.stackexchange.com/2.2
+  auth:
+    client:
+      url: "https://accounts.spotify.com/authorize"
+      clientId: 58f5ea655fc64389ae8f53047aa14201
+      scope: playlist-modify-private
+      responseType: code
+      secret: "ATTENTION: export STACKOVERFLOW_AUTH_CLIENT_SECRET env variable instead!"
+      key: YOUR-KEY-HERE
+    server:
+      host: localhost
+      port: 2000
+      context: /authorize
+      redirectUri: "http://${spotify.auth.server.host}:${spotify.auth.server.port}${spotify.auth.server.context}"
+      timeout: 60

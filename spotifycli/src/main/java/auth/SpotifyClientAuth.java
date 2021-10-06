@@ -1,7 +1,7 @@
 package auth;
 
-import config.GetAccessAndRefreshTokensRequestConfig;
-import config.GetAccessAndRefreshTokensResponseConfig;
+import models.PostRequest;
+import models.PostResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -11,22 +11,22 @@ import java.net.http.HttpResponse;
 
 public class SpotifyClientAuth {
     String code;
-    public GetAccessAndRefreshTokensRequestConfig postRequestConfig;
+    public PostRequest postRequest;
 
     SpotifyClientAuth(String code) {
         this.code = code;
-        this.postRequestConfig = new GetAccessAndRefreshTokensRequestConfig(code);
+        this.postRequest = new PostRequest(code);
     }
 
 
-    public GetAccessAndRefreshTokensResponseConfig getAccessAndRefreshTokens () throws IOException, InterruptedException {
+    public PostResponse getAccessAndRefreshTokens () throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://accounts.spotify.com/api/token"))
             .headers("Content-Type", "application/x-www-form-urlencoded")
             .POST(HttpRequest
                     .BodyPublishers
-                    .ofString(postRequestConfig.jsonBodyParameter()))
+                    .ofString(postRequest.jsonBodyParameter()))
             .build();
 
         HttpClient client = HttpClient.newBuilder()
@@ -35,7 +35,7 @@ public class SpotifyClientAuth {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return GetAccessAndRefreshTokensResponseConfig.deserializeJsonPostResponse(response.body());
+        return PostResponse.deserializeJsonPostResponse(response.body());
 
     }
 

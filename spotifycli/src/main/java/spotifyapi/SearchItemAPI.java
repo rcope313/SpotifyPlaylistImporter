@@ -1,9 +1,7 @@
 package spotifyapi;
 
-import manager.TokenManager;
 import models.Track;
 import utility.Utils;
-import xmlparser.ReadXmlSaxParser;
 
 import java.io.IOException;
 import java.net.URI;
@@ -15,14 +13,13 @@ import java.util.ArrayList;
 
 public class SearchItemAPI {
 
-    public static ArrayList<String> getSearchItemResponseList(String fileName, String token) {
+    public static ArrayList<String> getJsonTrackListFromItemSearch (ArrayList<Track> currentTracks, String token) {
 
-        ArrayList<String> searchItemResponseList = new ArrayList<>();
-        ArrayList<Track> currentTracks = ReadXmlSaxParser.parse(fileName);
+        ArrayList<String> jsonTrackList = new ArrayList<>();
 
         currentTracks.forEach((track) -> {
             try {
-                searchItemResponseList.add(getATrackResponseBody(track, token));
+                jsonTrackList.add(getAJsonTrackFromItemSearch(track, token));
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -30,11 +27,11 @@ public class SearchItemAPI {
             }
         });
 
-        return searchItemResponseList;
+        return jsonTrackList;
 
     }
 
-    public static String getATrackResponseBody(Track track, String token) throws IOException, InterruptedException {
+    public static String getAJsonTrackFromItemSearch(Track track, String token) throws IOException, InterruptedException {
 
         String trackNameURL = Utils.uRLify(track.trackName);
         String artistNameURL = Utils.uRLify(track.artistName);
@@ -56,6 +53,10 @@ public class SearchItemAPI {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.body() == null) {
+            System.out.print("trackNameURL unable to be added");
+        }
         return response.body();
 
     }

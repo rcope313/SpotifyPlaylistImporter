@@ -1,26 +1,23 @@
 package config;
 
+import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.core.annotation.Introspected;
+
+@Introspected
+@ConfigurationProperties("stackoverflow.auth.server")
 final public class HttpServerConfig {
     private String host;
     private int port;
     private String context;
+    private String redirectUri;
     private int timeout;
 
-    public HttpServerConfig(String host, int port, String context, int timeout) {
-        this.host = host;
-        this.port = port;
-        this.context = context;
-        this.timeout = timeout;
-    }
 
     public String getRedirectUri() {
-        return "http://" + host + ":" + port + context;
+        return redirectUri;
     }
 
-
-    public String getHost() {
-        return host;
-    }
+    public String getHost() { return host; }
 
     public void setHost(String host) {
         this.host = host;

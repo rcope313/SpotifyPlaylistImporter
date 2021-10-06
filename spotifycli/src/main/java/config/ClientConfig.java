@@ -1,16 +1,20 @@
 package config;
 
+import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.http.uri.UriBuilder;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.Random;
 
+@Introspected
+@ConfigurationProperties ("spotify.auth.client")
 final public class ClientConfig {
-    private String url;
-    private String clientId;
-    private String responseType;
-    private String scope;
+    public String url;
+    public String clientId;
+    public String responseType;
+    public String scope;
 
     public ClientConfig(String url, String clientId, String responseType, String scope) {
         this.url = url;

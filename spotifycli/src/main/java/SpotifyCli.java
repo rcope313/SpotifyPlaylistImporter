@@ -18,6 +18,7 @@ class SpotifyCli implements Callable<Integer> {
     }
 
     public static void main(String... args) { // bootstrap the application
+
         System.exit(new CommandLine(new SpotifyCli()).execute(args));
     }
 }

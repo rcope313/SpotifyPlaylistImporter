@@ -11,12 +11,13 @@ import picocli.CommandLine;
 import spotifyapi.AddItemToPlaylistAPI;
 import spotifyapi.CreateNewPlaylistAPI;
 import spotifyapi.SearchItemAPI;
+import xmlparser.ReadXmlSaxParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 @CommandLine.Command(name = "execute")
-public class ExecuteCommand implements Runnable {
+public class ExecuteCommand implements Runnable, Command {
 
     @CommandLine.Option(names = {"-f", "--file"}, required = true)
     public String xmlFile;
@@ -27,32 +28,37 @@ public class ExecuteCommand implements Runnable {
     @CommandLine.Option(names = {"-p", "--public"})
     public boolean playlistIsPublic;
     public ObjectMapper objectMapper = new ObjectMapper();
-    public String token = "BQD_2ag_mmvcrmOu1t8XqGlNYeFrXMFFM43kIoysA7GhgxwSVJVCKrYP0vTAhxqIuibwEF_EagKeVsuIr3pUkyqHjWkmlTluWQTOmsFQEBGTMP5MZUJeKwBHNvLMtORSuXuPSkfpkh6HbZv5vzlropm9lYoQVPVOoUDXvhrq2Pa9Pn7g2A";
-
 
     @Override
     public void run() {
 
-        String jsonTrackUris = null;
-        try {
-            jsonTrackUris = getListOfJsonTrackUris();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            createNewPlaylistWithTracks(jsonTrackUris);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        tokenManager.getTempFile();
+
+//        String jsonTrackUris = null;
+//        try {
+//            jsonTrackUris = getListOfJsonTrackUris();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            createNewPlaylistWithTracks(jsonTrackUris);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(CommandLine.Help.Ansi.ON.string("@|bold,fg(green) Success! |@"
+//                        + playlistName
+//                        + "@|bold,fg(green)  has been created. Check your spotify, and start listening!|@"));
+
 
 
     }
 
     // add exceptions
     private String getListOfJsonTrackUris() throws IOException {
-        ArrayList<String> searchResponse = SearchItemAPI.getSearchItemResponseList(xmlFile, token);
+        ArrayList<String> searchResponse = SearchItemAPI.getJsonTrackListFromItemSearch(ReadXmlSaxParser.parse(xmlFile), tokenManager.getToken());
         ArrayList<TrackURI> trackURIs = getListOfTracksFromSearchResponseList(searchResponse);
         return serializeTrackURIs(trackURIs);
 
@@ -63,10 +69,10 @@ public class ExecuteCommand implements Runnable {
         Playlist playlist = createPlaylist();
 
         String jsonPlaylist = serializePlaylist(playlist);
-        String playlistResponseBody = CreateNewPlaylistAPI.createNewPlaylist(playlist, jsonPlaylist, token);
+        String playlistResponseBody = CreateNewPlaylistAPI.createNewPlaylist(playlist, jsonPlaylist, tokenManager.getToken());
         PlaylistID playlistID = getPlaylistURI(playlistResponseBody);
 
-        AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, playlistID.id, token);
+        AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, playlistID.id, tokenManager.getToken());
 
     }
 

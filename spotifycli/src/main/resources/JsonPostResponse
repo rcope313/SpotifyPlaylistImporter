@@ -1,7 +1,0 @@
-{
-  "access_token" : "BQAwWrvQuMGmo0m95RzrmCVkvlsvJOVmKseT9vNvpWk65sbhoEBpdWwyQzYL7fdUsAmg82yGUm_C_l0E8qEHZr_XMeDGW1iCVmmTaHPJy0_4DhJKHDXq4Gg2dV7CV0hbpKeOxNr-GnKrrdBNI5qJq_ilYZSyQT10I5bkzql-vibNHV2WRg",
-  "token_type" : "Bearer",
-  "expires_in" : 3600,
-  "refresh_token": "AQDEgvLSViPrG2fT3hHTIhDgdtomWHZManeWwZ8R7TD6cZ9PEMD0c_1baA0j4TOMH1b_2yDS2e4sgBFmHl0DHOWt-T-GacP09-j_94UhhpPQ3-BE7atkqz6UgJoF3o4J8vU",
-  "scope": "playlist-modify-private"
-}

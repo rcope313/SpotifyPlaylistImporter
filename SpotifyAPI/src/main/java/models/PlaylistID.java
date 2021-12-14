@@ -1,8 +1,8 @@
-package model;
+package models;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jackson.JsonDeserializePlaylist;
+import jsonparser.JsonDeserializePlaylist;
 import java.io.File;
 import java.io.IOException;
 

@@ -2,11 +2,11 @@ package models;
 
 public class Track {
 
-    public String trackName;
-    public String artistName;
-    public String albumName;
-    public String genre;
-    public int year;
+    public final String trackName;
+    public final String artistName;
+    public final String albumName;
+    public final String genre;
+    public final int year;
 
     public Track (String trackName, String artistName, String albumName, String genre, int year) {
         this.trackName = trackName;
@@ -22,6 +22,25 @@ public class Track {
         albumName = "";
         genre = "";
         year = 0;
+    }
 
+    public String getTrackName() {
+        return trackName;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public int getYear() {
+        return year;
     }
 }

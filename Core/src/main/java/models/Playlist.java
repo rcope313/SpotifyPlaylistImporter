@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Playlist {
-    public String name;
-    public String description;
+    public final String name;
+    public final String description;
     @JsonIgnore
-    public boolean isPublic;
+    public final boolean isPublic;
 
     public Playlist(String name, String description, boolean isPublic) {
         this.name = name;
@@ -15,10 +15,16 @@ public class Playlist {
         this.isPublic = isPublic;
     }
 
-    @JsonGetter("public")
-    public boolean getThePublic () {
-        return isPublic;
+    public String getName() {
+        return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
+    @JsonGetter("public")
+    public boolean isPublic() {
+        return isPublic;
+    }
 }

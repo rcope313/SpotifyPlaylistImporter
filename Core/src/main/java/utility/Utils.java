@@ -1,4 +1,4 @@
-package models.utility;
+package utility;
 
 import java.util.Random;
 
@@ -7,12 +7,10 @@ public class Utils {
     public static String uRLify(String s) {
         s = s.trim();
         s = s.replaceAll(" ", "%20");
-
         return s;
     }
 
     public static String generateRandomAlphaNumericString () {
-
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 11;

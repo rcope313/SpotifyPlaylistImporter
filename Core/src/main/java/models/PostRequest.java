@@ -1,12 +1,11 @@
 package models;
 
 public class PostRequest {
-
-    public String grantType;
-    public String code;
-    public String redirectUri;
-    public String clientId;
-    public String clientSecret;
+    public final String grantType;
+    public final String code;
+    public final String redirectUri;
+    public final String clientId;
+    public final String clientSecret;
 
     public PostRequest(String code) {
         this.grantType = "authorization_code";
@@ -22,7 +21,25 @@ public class PostRequest {
                 + "&client_id=" + clientId
                 + "&client_secret=" + clientSecret
                 + "&code=" + code;
-
     }
 
+    public String getGrantType() {
+        return grantType;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
 }

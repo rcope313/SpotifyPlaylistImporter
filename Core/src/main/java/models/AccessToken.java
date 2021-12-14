@@ -1,15 +1,13 @@
 package models;
 
-public final class AccessToken {
-    String value;
+public class AccessToken {
+    public final String value;
 
-    public AccessToken() {}
-
-    public void setAccessTokenValue(String value) {
+    public AccessToken(String value) {
         this.value = value;
     }
 
-    public String getAccessTokenValue() {
-        return this.value;
+    public String getValue() {
+        return value;
     }
 }

@@ -1,7 +1,7 @@
 package spotifyapi;
 
 import models.Track;
-import models.utility.Utils;
+import utility.Utils;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;

@@ -1,6 +1,9 @@
 import models.Track;
+import org.junit.Test;
+import xmlparser.ReadXmlSaxParser;
 import java.util.ArrayList;
 import java.util.Arrays;
+import static org.assertj.core.api.Assertions.*;
 
 public class ParseTester {
 
@@ -68,49 +71,42 @@ public class ParseTester {
                         "Eyes Open (Bonus Track Version)",
                         "Alternative",
                         2006);
-
         bestOfYou =
                 new Track("Best of You",
                         "Foo Fighters",
                         "In Your Honor",
                         "Alternative",
                         2005);
-
         someoneToLove =
                 new Track("Someone to Love",
                         "Fountains Of Wayne",
                         "Traffic and Weather",
                         "Alternative",
                         2007);
-
         theKill =
                 new Track("The Kill",
                         "Thirty Seconds to Mars",
                         "A Beautiful Lie",
                         "Alternative",
                         2005);
-
         theGreatEscape =
                 new Track("The Great Escape",
                         "Boys Like Girls",
                         "Boys Like Girls",
                         "Alternative",
                         2006);
-
         starlight =
                 new Track("Starlight",
                         "Muse",
                         "Black Holes and Revelations",
                         "Alternative",
                         2006);
-
         hereInYourArms =
                 new Track("Here (In Your Arms)",
                         "Hellogoodbye",
                         "Zombies! Aliens! Vampires! Dinosaurs!",
                         "Alternative",
                         2006);
-
         alreadyOver =
                 new Track("Already Over",
                         "Red",
@@ -123,28 +119,24 @@ public class ParseTester {
                         "End of Silence",
                         "Alternative",
                         2006);
-
         famousLastWords =
                 new Track("Famous Last Words",
                         "My Chemical Romance",
                         "The Black Parade",
                         "Alternative",
                         2006);
-
         yourGuardianAngel =
                 new Track("Your Guardian Angel",
                         "The Red Jumpsuit Apparatus",
                         "Don't You Fake It",
                         "Rock",
                         2006);
-
         onlyOne =
                 new Track("Only One",
                         "Yellowcard",
                         "Ocean Avenue",
                         "Rock",
                         2003);
-
         oceanAvenue =
                 new Track("Ocean Avenue",
                         "Yellowcard",
@@ -157,17 +149,22 @@ public class ParseTester {
                 superman, timeWontLetMeGo, heyThereDelilah, chasingCars, bestOfYou, someoneToLove,
                 theKill, theGreatEscape, starlight, hereInYourArms, alreadyOver, breatheIntoMe,
                 famousLastWords, yourGuardianAngel, onlyOne, oceanAvenue));
-
     }
 
-    void testReadXMLSaxParser (Tester t) {
+    @Test
+    void itReadsITunesXMLFileAndBuildsArrayListOfTracks() {
         this.initData();
-        t.checkExpect(ReadXmlSaxParser.parse
-                ("/Users/rachelcope/Documents/ITunesXMLtoSpotifyPlaylist/src/main/resources/OneSongPlaylist.xml"),
-                p1);
-        t.checkExpect(ReadXmlSaxParser.parse
-                        ("/Users/rachelcope/Documents/ITunesXMLtoSpotifyPlaylist/src/main/resources/ProjectExample.xml"),
-                p2);
 
+        ArrayList<Track> instantiatedTrackList1 = ReadXmlSaxParser.parse
+                ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml");
+        for (int idx = 0; idx < instantiatedTrackList1.size(); idx++) {
+            assertThat(instantiatedTrackList1.get(idx)).isEqualTo(p1.get(idx));
+        }
+
+        ArrayList<Track> instantiatedTrackList2 = ReadXmlSaxParser.parse
+                ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml");
+        for (int idx = 0; idx < instantiatedTrackList2.size(); idx++) {
+            assertThat(instantiatedTrackList2.get(idx)).isEqualTo(p2.get(idx));
+        }
     }
 }

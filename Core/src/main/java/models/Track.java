@@ -16,12 +16,14 @@ public class Track {
         this.year = year;
     }
 
-    public Track () {
-        trackName = "";
-        artistName = "";
-        albumName = "";
-        genre = "";
-        year = 0;
+    @Override
+    public boolean equals(Object obj) {
+        Track aTrack = (Track)obj;
+        return  aTrack.getTrackName().equals(this.getTrackName()) &&
+                aTrack.getArtistName().equals(this.getArtistName()) &&
+                aTrack.getAlbumName().equals(this.getAlbumName()) &&
+                aTrack.getGenre().equals(this.getGenre()) &&
+                aTrack.getYear() == this.getYear();
     }
 
     public String getTrackName() {

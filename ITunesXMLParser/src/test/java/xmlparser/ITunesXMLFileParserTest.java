@@ -1,11 +1,12 @@
+package xmlparser;
+
 import models.Track;
 import org.junit.Test;
-import xmlparser.ITunesXMLFileParser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static org.assertj.core.api.Assertions.*;
 
-public class ParseTester {
+public class ITunesXMLFileParserTest {
 
     Track
             myImmortal, soColdICouldSeeMyBreath, iWriteSinsNotTragedies, darkBlue, helena,

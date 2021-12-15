@@ -12,7 +12,7 @@ import picocli.CommandLine;
 import spotifyapi.AddItemToPlaylistAPI;
 import spotifyapi.CreateNewPlaylistAPI;
 import spotifyapi.SearchItemAPI;
-import xmlparser.ReadXmlSaxParser;
+import xmlparser.ITunesXMLFileParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class ExecuteCommand implements Runnable, Command {
 
     // add exceptions
     private String getListOfJsonTrackUris() throws IOException {
-        ArrayList<String> searchResponse = SearchItemAPI.getJsonTrackListFromItemSearch(ReadXmlSaxParser.parse(xmlFile), new TokenManager().getToken());
+        ArrayList<String> searchResponse = SearchItemAPI.getJsonTrackListFromItemSearch(ITunesXMLFileParser.parse(xmlFile), new TokenManager().getToken());
         ArrayList<TrackURI> trackURIs = getListOfTracksFromSearchResponseList(searchResponse);
         return serializeTrackURIs(trackURIs);
 

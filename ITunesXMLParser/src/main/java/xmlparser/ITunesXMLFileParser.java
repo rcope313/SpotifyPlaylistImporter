@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class ReadXmlSaxParser {
+public class ITunesXMLFileParser {
+
     public final static SAXParserFactory FACTORY = SAXParserFactory.newInstance();
-    public final static MapStaffObjectHandlerSax HANDLER = new MapStaffObjectHandlerSax();
+    public final static ITunesXMLFileDefaultHandler HANDLER = new ITunesXMLFileDefaultHandler();
 
     public static ArrayList<Track> parse(String fileName) {
         ArrayList<Track> resultTrackList;
@@ -21,7 +22,7 @@ public class ReadXmlSaxParser {
         try (InputStream is = getXMLFileAsStream(fileName)) {
             SAXParser saxParser = FACTORY.newSAXParser();
             saxParser.parse(is, HANDLER);
-            resultTrackList = HANDLER.getResult();
+            resultTrackList = HANDLER.getHandlerResultTrackList();
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();

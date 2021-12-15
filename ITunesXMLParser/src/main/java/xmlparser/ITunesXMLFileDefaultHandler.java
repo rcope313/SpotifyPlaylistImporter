@@ -5,10 +5,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 
-public class MapStaffObjectHandlerSax extends DefaultHandler {
+public class ITunesXMLFileDefaultHandler extends DefaultHandler {
 
     private final StringBuilder currentHandlerStringValue = new StringBuilder();
-    private final ArrayList<Track> handlerResultTrackList = new ArrayList<>();
+    final ArrayList<Track> handlerResultTrackList = new ArrayList<>();
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
@@ -55,5 +55,9 @@ public class MapStaffObjectHandlerSax extends DefaultHandler {
     @Override
     public void characters(char[] ch, int start, int length)  {
         currentHandlerStringValue.append(ch, start, length);
+    }
+
+    public ArrayList<Track> getHandlerResultTrackList() {
+        return handlerResultTrackList;
     }
 }

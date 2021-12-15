@@ -1,6 +1,6 @@
 import models.Track;
 import org.junit.Test;
-import xmlparser.ReadXmlSaxParser;
+import xmlparser.ITunesXMLFileParser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static org.assertj.core.api.Assertions.*;
@@ -155,13 +155,13 @@ public class ParseTester {
     void itReadsITunesXMLFileAndBuildsArrayListOfTracks() {
         this.initData();
 
-        ArrayList<Track> instantiatedTrackList1 = ReadXmlSaxParser.parse
+        ArrayList<Track> instantiatedTrackList1 = ITunesXMLFileParser.parse
                 ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml");
         for (int idx = 0; idx < instantiatedTrackList1.size(); idx++) {
             assertThat(instantiatedTrackList1.get(idx)).isEqualTo(p1.get(idx));
         }
 
-        ArrayList<Track> instantiatedTrackList2 = ReadXmlSaxParser.parse
+        ArrayList<Track> instantiatedTrackList2 = ITunesXMLFileParser.parse
                 ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml");
         for (int idx = 0; idx < instantiatedTrackList2.size(); idx++) {
             assertThat(instantiatedTrackList2.get(idx)).isEqualTo(p2.get(idx));

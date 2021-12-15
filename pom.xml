@@ -11,11 +11,9 @@
     <modules>
         <module>Core</module>
         <module>Cli</module>
-        <module>JsonParser</module>
         <module>ItunesXMLParser</module>
         <module>OAuth</module>
         <module>SpotifyAPI</module>
-        <module>SpotifyJosnParser</module>
     </modules>
     <dependencies>
         <dependency>

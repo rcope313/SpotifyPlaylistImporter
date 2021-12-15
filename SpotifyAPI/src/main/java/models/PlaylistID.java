@@ -8,7 +8,7 @@ import java.io.IOException;
 
 @JsonDeserialize(using = JsonDeserializePlaylist.class)
 public class PlaylistID {
-    public String  id;
+    public String id;
 
     public PlaylistID(String id) {
         this.id = id;

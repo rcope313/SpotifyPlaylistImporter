@@ -11,37 +11,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
 public class ReadXmlSaxParser {
+    public final static SAXParserFactory FACTORY = SAXParserFactory.newInstance();
+    public final static MapStaffObjectHandlerSax HANDLER = new MapStaffObjectHandlerSax();
 
     public static ArrayList<Track> parse(String fileName) {
-
-        ArrayList<Track> result = new ArrayList<>();
-
-        SAXParserFactory factory = SAXParserFactory.newInstance();
+        ArrayList<Track> resultTrackList;
 
         try (InputStream is = getXMLFileAsStream(fileName)) {
-
-            SAXParser saxParser = factory.newSAXParser();
-            MapStaffObjectHandlerSax handler = new MapStaffObjectHandlerSax();
-            saxParser.parse(is, handler);
-
-            result = handler.getResult();
-
+            SAXParser saxParser = FACTORY.newSAXParser();
+            saxParser.parse(is, HANDLER);
+            resultTrackList = HANDLER.getResult();
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
+            resultTrackList = null;
         }
-
-        return result;
-
+        return resultTrackList;
     }
 
     private static InputStream getXMLFileAsStream(String fileName) throws FileNotFoundException {
-
-        InputStream targetStream = new FileInputStream(fileName);
-        return targetStream;
-
+        return new FileInputStream(fileName);
     }
-
 }

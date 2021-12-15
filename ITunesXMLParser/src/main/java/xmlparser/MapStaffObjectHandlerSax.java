@@ -3,99 +3,57 @@ package xmlparser;
 import models.Track;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
-
 import java.util.ArrayList;
 
 public class MapStaffObjectHandlerSax extends DefaultHandler {
 
-    private StringBuilder currentValue = new StringBuilder();
-    ArrayList<Track> result;
-    Track currentTrack = new Track();
+    private final StringBuilder currentHandlerStringValue = new StringBuilder();
+    private final ArrayList<Track> handlerResultTrackList = new ArrayList<>();
 
-    public ArrayList<Track> getResult() {
-        return result;
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+        String trackName = null;
+        String artistName = null;
+        String albumName = null;
+        String genre = null;
+        int year = 0;
+
+        if (trackName.equals("Waiting For Input")) {
+            trackName = currentHandlerStringValue.toString();
+        }
+        if (currentHandlerStringValue.toString().equals("Name")) {
+            trackName = "Waiting For Input";
+        }
+        if (artistName.equals("Waiting For Input")) {
+            artistName = currentHandlerStringValue.toString();
+        }
+        if (currentHandlerStringValue.toString().equals("Artist")) {
+            artistName = "Waiting For Input";
+        }
+        if (albumName.equals("Waiting For Input")) {
+            albumName = currentHandlerStringValue.toString();
+        }
+        if (currentHandlerStringValue.toString().equals("Album")) {
+            albumName = "Waiting For Input";
+        }
+        if (genre.equals("Waiting For Input")) {
+            genre = currentHandlerStringValue.toString();
+        }
+        if (currentHandlerStringValue.toString().equals("Genre")) {
+            genre = "Waiting For Input";
+        }
+        if (year == -1) {
+            year = Integer.parseInt(currentHandlerStringValue.toString());
+            handlerResultTrackList.add(new Track(trackName, artistName, albumName, genre, year));
+        }
+        if (currentHandlerStringValue.toString().equals("Year")) {
+            year = -1;
+        }
+        currentHandlerStringValue.setLength(0);
     }
 
     @Override
-    public void startDocument() {
-        result = new ArrayList<>();
+    public void characters(char[] ch, int start, int length)  {
+        currentHandlerStringValue.append(ch, start, length);
     }
-
-    @Override
-    public void startElement(
-            String uri,
-            String localName,
-            String qName,
-            Attributes attributes) {
-
-        // trackName
-
-        if (currentTrack.trackName.equals("Waiting For Input")) {
-            currentTrack.trackName = currentValue.toString();
-        }
-
-        if (currentValue.toString().equals("Name")) {
-            currentTrack.trackName = "Waiting For Input";
-
-        }
-
-        // artistName
-
-        if (currentTrack.artistName.equals("Waiting For Input")) {
-            currentTrack.artistName = currentValue.toString();
-        }
-
-        if (currentValue.toString().equals("Artist")) {
-            currentTrack.artistName = "Waiting For Input";
-
-        }
-
-        // albumName
-
-        if (currentTrack.albumName.equals("Waiting For Input")) {
-            currentTrack.albumName = currentValue.toString();
-        }
-
-        if (currentValue.toString().equals("Album")) {
-            currentTrack.albumName = "Waiting For Input";
-
-        }
-
-        // genre
-
-        if (currentTrack.genre.equals("Waiting For Input")) {
-            currentTrack.genre = currentValue.toString();
-        }
-
-        if (currentValue.toString().equals("Genre")) {
-            currentTrack.genre = "Waiting For Input";
-
-        }
-
-        // year
-
-        if (currentTrack.year == -1) {
-            currentTrack.year = Integer.valueOf(currentValue.toString());
-            result.add(currentTrack);
-            currentTrack = new Track();
-        }
-
-        if (currentValue.toString().equals("Year")) {
-            currentTrack.year = -1;
-
-        }
-
-
-        currentValue.setLength(0);
-
-
-    }
-
-
-
-    public void characters(char ch[], int start, int length) {
-        currentValue.append(ch, start, length);
-
-    }
-
 }

@@ -1,5 +1,3 @@
-package xmlparser;
-
 import models.Track;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +12,6 @@ public class ParseTester {
 
     ArrayList<Track>
             p1, p2;
-
-
 
     void initData() {
         myImmortal =
@@ -164,14 +160,14 @@ public class ParseTester {
 
     }
 
-//    void testReadXMLSaxParser (Tester t) {
-//        this.initData();
-//        t.checkExpect(ReadXmlSaxParser.parse
-//                ("/Users/rachelcope/Documents/ITunesXMLtoSpotifyPlaylist/src/main/resources/OneSongPlaylist.xml"),
-//                p1);
-//        t.checkExpect(ReadXmlSaxParser.parse
-//                        ("/Users/rachelcope/Documents/ITunesXMLtoSpotifyPlaylist/src/main/resources/ProjectExample.xml"),
-//                p2);
-//
-//    }
+    void testReadXMLSaxParser (Tester t) {
+        this.initData();
+        t.checkExpect(ReadXmlSaxParser.parse
+                ("/Users/rachelcope/Documents/ITunesXMLtoSpotifyPlaylist/src/main/resources/OneSongPlaylist.xml"),
+                p1);
+        t.checkExpect(ReadXmlSaxParser.parse
+                        ("/Users/rachelcope/Documents/ITunesXMLtoSpotifyPlaylist/src/main/resources/ProjectExample.xml"),
+                p2);
+
+    }
 }

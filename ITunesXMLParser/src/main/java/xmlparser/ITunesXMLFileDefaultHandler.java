@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ITunesXMLFileDefaultHandler extends DefaultHandler {
 
     private final StringBuilder currentHandlerStringValue = new StringBuilder();
-    final ArrayList<Track> handlerResultTrackList = new ArrayList<>();
+    private final ArrayList<Track> handlerResultTrackList = new ArrayList<>();
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {

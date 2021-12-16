@@ -2,11 +2,11 @@ package models;
 
 public class Track {
 
-    public final String trackName;
-    public final String artistName;
-    public final String albumName;
-    public final String genre;
-    public final int year;
+    private final String trackName;
+    private final String artistName;
+    private final String albumName;
+    private final String genre;
+    private final int year;
 
     public Track (String trackName, String artistName, String albumName, String genre, int year) {
         this.trackName = trackName;

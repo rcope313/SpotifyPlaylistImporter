@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class ITunesXMLFileParser {
 
-    public final static SAXParserFactory FACTORY = SAXParserFactory.newInstance();
-    public final static ITunesXMLFileDefaultHandler HANDLER = new ITunesXMLFileDefaultHandler();
+    private final static SAXParserFactory FACTORY = SAXParserFactory.newInstance();
+    private final static ITunesXMLFileDefaultHandler HANDLER = new ITunesXMLFileDefaultHandler();
 
     public static ArrayList<Track> parse(String fileName) {
         ArrayList<Track> resultTrackList;

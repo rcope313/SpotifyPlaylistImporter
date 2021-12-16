@@ -29,8 +29,8 @@ public class SearchItemAPI {
 
     public static String getAJsonTrackFromItemSearch(Track track, String token) throws IOException, InterruptedException {
 
-        String trackNameURL = Utils.uRLify(track.trackName);
-        String artistNameURL = Utils.uRLify(track.artistName);
+        String trackNameURL = Utils.uRLify(track.getTrackName());
+        String artistNameURL = Utils.uRLify(track.getArtistName());
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.spotify.com/v1/search?" +

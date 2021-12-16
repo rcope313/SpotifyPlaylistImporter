@@ -5,15 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Playlist;
-import models.PlaylistID;
+import models.SpotifyPlaylistID;
 import models.TokenManager;
-import models.TrackURI;
+import models.SpotifyTrackURI;
 import picocli.CommandLine;
 import spotifyapi.AddItemToPlaylistAPI;
 import spotifyapi.CreateNewPlaylistAPI;
 import spotifyapi.SearchItemAPI;
 import xmlparser.ITunesXMLFileParser;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -54,8 +53,8 @@ public class ExecuteCommand implements Runnable, Command {
     // add exceptions
     private String getListOfJsonTrackUris() throws IOException {
         ArrayList<String> searchResponse = SearchItemAPI.getJsonTrackListFromItemSearch(ITunesXMLFileParser.parse(xmlFile), new TokenManager().getToken());
-        ArrayList<TrackURI> trackURIs = getListOfTracksFromSearchResponseList(searchResponse);
-        return serializeTrackURIs(trackURIs);
+        ArrayList<SpotifyTrackURI> spotifyTrackURIses = getListOfTracksFromSearchResponseList(searchResponse);
+        return serializeTrackURIs(spotifyTrackURIses);
 
     }
 
@@ -65,9 +64,9 @@ public class ExecuteCommand implements Runnable, Command {
 
         String jsonPlaylist = serializePlaylist(playlist);
         String playlistResponseBody = CreateNewPlaylistAPI.createNewPlaylist(playlist, jsonPlaylist, new TokenManager().getToken());
-        PlaylistID playlistID = getPlaylistURI(playlistResponseBody);
+        SpotifyPlaylistID spotifyPlaylistID = getPlaylistURI(playlistResponseBody);
 
-        AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, playlistID.id, new TokenManager().getToken());
+        AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, spotifyPlaylistID.value, new TokenManager().getToken());
 
     }
 
@@ -88,28 +87,28 @@ public class ExecuteCommand implements Runnable, Command {
         return objectMapper.writeValueAsString(playlist);
     }
 
-    private ArrayList<TrackURI> getListOfTracksFromSearchResponseList (ArrayList<String> searchResponseList) throws IOException {
+    private ArrayList<SpotifyTrackURI> getListOfTracksFromSearchResponseList (ArrayList<String> searchResponseList) throws IOException {
 
-        ArrayList<TrackURI> trackURIs = new ArrayList<>();
+        ArrayList<SpotifyTrackURI> spotifyTrackURIses = new ArrayList<>();
 
         for (String aJsonString : searchResponseList ) {
-            trackURIs.add(objectMapper.readValue(aJsonString, TrackURI.class));
+            spotifyTrackURIses.add(objectMapper.readValue(aJsonString, SpotifyTrackURI.class));
 
         }
 
-        return trackURIs;
+        return spotifyTrackURIses;
     }
 
-    private PlaylistID getPlaylistURI (String playlistResponseBody) throws IOException {
-        return objectMapper.readValue(playlistResponseBody, PlaylistID.class);
+    private SpotifyPlaylistID getPlaylistURI (String playlistResponseBody) throws IOException {
+        return objectMapper.readValue(playlistResponseBody, SpotifyPlaylistID.class);
     }
 
-    private String serializeTrackURIs (ArrayList<TrackURI> trackURIs) throws JsonProcessingException {
+    private String serializeTrackURIs (ArrayList<SpotifyTrackURI> spotifyTrackURIses) throws JsonProcessingException {
 
         ObjectNode rootNode = objectMapper.createObjectNode();
         ArrayNode arrayNode = rootNode.putArray("uris");
 
-        trackURIs.forEach((aTrackURI) -> arrayNode.add(aTrackURI.uriName));
+        spotifyTrackURIses.forEach((aSpotifyTrackURI) -> arrayNode.add(aSpotifyTrackURI.uriName));
 
         String jsonString = objectMapper.writeValueAsString(rootNode);
 

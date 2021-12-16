@@ -18,25 +18,25 @@ public class ITunesXMLFileDefaultHandler extends DefaultHandler {
         String genre = null;
         int year = 0;
 
-        if (trackName.equals("Waiting For Input")) {
+        if (trackName != null && trackName.equals("Waiting For Input")) {
             trackName = currentHandlerStringValue.toString();
         }
         if (currentHandlerStringValue.toString().equals("Name")) {
             trackName = "Waiting For Input";
         }
-        if (artistName.equals("Waiting For Input")) {
+        if (artistName != null && artistName.equals("Waiting For Input")) {
             artistName = currentHandlerStringValue.toString();
         }
         if (currentHandlerStringValue.toString().equals("Artist")) {
             artistName = "Waiting For Input";
         }
-        if (albumName.equals("Waiting For Input")) {
+        if (albumName != null && albumName.equals("Waiting For Input")) {
             albumName = currentHandlerStringValue.toString();
         }
         if (currentHandlerStringValue.toString().equals("Album")) {
             albumName = "Waiting For Input";
         }
-        if (genre.equals("Waiting For Input")) {
+        if (genre != null && genre.equals("Waiting For Input")) {
             genre = currentHandlerStringValue.toString();
         }
         if (currentHandlerStringValue.toString().equals("Genre")) {

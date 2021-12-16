@@ -9,7 +9,7 @@ import models.SpotifyPlaylistID;
 import models.TokenManager;
 import models.SpotifyTrackURI;
 import picocli.CommandLine;
-import client.AddItemToPlaylistAPI;
+import client.BuildSpotifyPlaylistAPI;
 import client.BuildEmptyPlaylistAPI;
 import client.SearchItemAPI;
 import xmlparser.ITunesXMLFileParser;
@@ -66,7 +66,7 @@ public class ExecuteCommand implements Runnable, Command {
         String playlistResponseBody = BuildEmptyPlaylistAPI.createNewPlaylist(jsonPlaylist, new TokenManager().getToken());
         SpotifyPlaylistID spotifyPlaylistID = getPlaylistURI(playlistResponseBody);
 
-        AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, spotifyPlaylistID.getValue(), new TokenManager().getToken());
+        BuildSpotifyPlaylistAPI.addSpotifyTracksToEmptyPlaylist(jsonTrackURIs, spotifyPlaylistID.getValue(), new TokenManager().getToken());
 
     }
 

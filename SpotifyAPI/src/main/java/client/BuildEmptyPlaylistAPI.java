@@ -10,15 +10,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-public class BuildEmptyPlaylistAPI extends SpotifyClient{
-    private final Playlist playlist;
+class BuildEmptyPlaylistAPI extends SpotifyClient{
 
-    public BuildEmptyPlaylistAPI(String xmlFile, Playlist playlist) {
-        super(xmlFile);
-        this.playlist = playlist;
+    BuildEmptyPlaylistAPI(String xmlFile, Playlist playlist) {
+        super(xmlFile, playlist);
     }
 
-    private SpotifyPlaylistID buildSpotifyEmptyPlaylist() throws IOException, InterruptedException {
+    SpotifyPlaylistID buildSpotifyEmptyPlaylist() throws IOException, InterruptedException {
         String jsonPlaylist = serializePlaylistToJsonString(this.getPlaylist());
         String playlistResponseBody = BuildEmptyPlaylistAPI.createNewPlaylist(jsonPlaylist, this.getToken());
         return getPlaylistURI(playlistResponseBody);
@@ -29,7 +27,7 @@ public class BuildEmptyPlaylistAPI extends SpotifyClient{
     }
 
     // is this hard coded??
-    public static String createNewPlaylist(String jsonPlaylist, String token) throws IOException, InterruptedException {
+    static String createNewPlaylist(String jsonPlaylist, String token) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.spotify.com/v1/users/1287343652/playlists"))
                 .header("Authorization", "Bearer " + token)
@@ -50,9 +48,5 @@ public class BuildEmptyPlaylistAPI extends SpotifyClient{
 
     private SpotifyPlaylistID getPlaylistURI (String playlistResponseBody) throws IOException {
         return this.getObjectMapper().readValue(playlistResponseBody, SpotifyPlaylistID.class);
-    }
-
-    public Playlist getPlaylist() {
-        return playlist;
     }
 }

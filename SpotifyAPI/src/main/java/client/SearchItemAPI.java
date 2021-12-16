@@ -3,6 +3,7 @@ package client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.Playlist;
 import models.SpotifyTrackURI;
 import models.Track;
 import utility.Utils;
@@ -16,13 +17,13 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class SearchItemAPI extends SpotifyClient {
+class SearchItemAPI extends SpotifyClient {
 
-    public SearchItemAPI(String xmlFile) {
-        super(xmlFile);
+    SearchItemAPI(String xmlFile, Playlist playlist) {
+        super(xmlFile, playlist);
     }
 
-    public String buildSpotifyTrackJsonStringList() throws IOException {
+    String buildSpotifyTrackJsonStringList() throws IOException {
         ArrayList<String> spotifyTrackJsonStringList = buildSpotifyTrackJsonStringListByItemSearchAPI(ITunesXMLFileParser.parse(getXmlFile()), getToken());
         ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = buildListOfSpotifyTrackURIFromJsonString(spotifyTrackJsonStringList);
         return buildSpotifyTrackURIJsonString(listOfSpotifyTrackURI);

@@ -2,11 +2,11 @@ package models;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jsonparser.JsonDeserializeItemSearchOutput;
+import jsonparser.deserialize.DeserializeSearchItemAPIOutput;
 import java.io.File;
 import java.io.IOException;
 
-@JsonDeserialize(using = JsonDeserializeItemSearchOutput.class)
+@JsonDeserialize(using = DeserializeSearchItemAPIOutput.class)
 public class TrackURI {
     public String uriName;
 

@@ -153,7 +153,7 @@ public class ITunesXMLFileParserTest {
     }
 
     @Test
-    void itReadsITunesXMLFileAndBuildsArrayListOfTracks() {
+    public void itReadsITunesXMLFileAndBuildsArrayListOfTracks() {
         this.initData();
 
         ArrayList<Track> instantiatedTrackList1 = ITunesXMLFileParser.parse

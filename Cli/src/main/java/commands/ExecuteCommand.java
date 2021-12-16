@@ -33,28 +33,22 @@ public class ExecuteCommand implements Runnable, Command {
     @Override
     public void run() {
 
-//        tokenManager.getTempFile();
-
-//        String jsonTrackUris = null;
-//        try {
-//            jsonTrackUris = getListOfJsonTrackUris();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            createNewPlaylistWithTracks(jsonTrackUris);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println(CommandLine.Help.Ansi.ON.string("@|bold,fg(green) Success! |@"
-//                        + playlistName
-//                        + "@|bold,fg(green)  has been created. Check your spotify, and start listening!|@"));
-
-
-
+        String jsonTrackUris = null;
+        try {
+            jsonTrackUris = getListOfJsonTrackUris();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            createNewPlaylistWithTracks(jsonTrackUris);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(CommandLine.Help.Ansi.ON.string("@|bold,fg(green) Success! |@"
+                        + playlistName
+                        + "@|bold,fg(green)  has been created. Check your spotify, and start listening!|@"));
     }
 
     // add exceptions

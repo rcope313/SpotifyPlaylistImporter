@@ -2,7 +2,7 @@ package models;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jsonparser.JsonDeserializePlaylist;
+import jsonparser.deserialize.JsonDeserializePlaylist;
 import java.io.File;
 import java.io.IOException;
 

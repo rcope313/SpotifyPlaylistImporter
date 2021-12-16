@@ -1,7 +1,6 @@
-package jsonparser;
+package jsonparser.deserialize;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -9,18 +8,19 @@ import models.TrackURI;
 
 import java.io.IOException;
 
-public class JsonDeserializeItemSearchOutput extends StdDeserializer<TrackURI> {
+public class DeserializeSearchItemAPIOutput extends StdDeserializer<TrackURI> {
 
-    public JsonDeserializeItemSearchOutput() {
+    //i don't know if i need either of these constructors
+    public DeserializeSearchItemAPIOutput() {
         this(null);
     }
 
-    public JsonDeserializeItemSearchOutput(Class<?> vc) {
+    public DeserializeSearchItemAPIOutput(Class<?> vc) {
         super(vc);
     }
 
     @Override
-    public TrackURI deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public TrackURI deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode rootNode = jsonParser.getCodec().readTree(jsonParser);
         JsonNode itemsNode = rootNode.get("tracks").get("items");
         return new TrackURI(itemsNode.get(0).get("uri").asText());

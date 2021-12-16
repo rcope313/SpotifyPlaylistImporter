@@ -1,4 +1,4 @@
-package jsonparser;
+package jsonparser.deserialize;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class JsonDeserializePlaylist extends StdDeserializer<PlaylistID> {
 
+    //i don't know if i need either of these constructors
     public JsonDeserializePlaylist() {
         this(null);
     }

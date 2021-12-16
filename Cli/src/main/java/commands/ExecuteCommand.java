@@ -9,9 +9,9 @@ import models.SpotifyPlaylistID;
 import models.TokenManager;
 import models.SpotifyTrackURI;
 import picocli.CommandLine;
-import spotifyapi.AddItemToPlaylistAPI;
-import spotifyapi.CreateNewPlaylistAPI;
-import spotifyapi.SearchItemAPI;
+import client.AddItemToPlaylistAPI;
+import client.CreateNewPlaylistAPI;
+import client.SearchItemAPI;
 import xmlparser.ITunesXMLFileParser;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class ExecuteCommand implements Runnable, Command {
         String playlistResponseBody = CreateNewPlaylistAPI.createNewPlaylist(playlist, jsonPlaylist, new TokenManager().getToken());
         SpotifyPlaylistID spotifyPlaylistID = getPlaylistURI(playlistResponseBody);
 
-        AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, spotifyPlaylistID.value, new TokenManager().getToken());
+        AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, spotifyPlaylistID.getValue(), new TokenManager().getToken());
 
     }
 
@@ -108,7 +108,7 @@ public class ExecuteCommand implements Runnable, Command {
         ObjectNode rootNode = objectMapper.createObjectNode();
         ArrayNode arrayNode = rootNode.putArray("uris");
 
-        spotifyTrackURIses.forEach((aSpotifyTrackURI) -> arrayNode.add(aSpotifyTrackURI.uriName));
+        spotifyTrackURIses.forEach((aSpotifyTrackURI) -> arrayNode.add(aSpotifyTrackURI.getUriName()));
 
         String jsonString = objectMapper.writeValueAsString(rootNode);
 

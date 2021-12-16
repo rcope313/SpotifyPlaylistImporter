@@ -1,4 +1,4 @@
-package spotifyapi;
+package client;
 
 import models.Playlist;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-public class CreateNewPlaylistAPI {
+public class CreateNewPlaylistAPI extends SpotifyClient{
 
     public static String createNewPlaylist(Playlist playlist, String jsonPlaylist, String token) throws IOException, InterruptedException {
 

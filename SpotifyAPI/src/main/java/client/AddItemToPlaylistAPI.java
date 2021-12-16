@@ -1,4 +1,4 @@
-package spotifyapi;
+package client;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,7 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-public class AddItemToPlaylistAPI {
+public class AddItemToPlaylistAPI extends SpotifyClient{
 
     public static String addItemToPlaylist(String jsonTrackURIs, String playlistID, String token) throws IOException, InterruptedException {
 

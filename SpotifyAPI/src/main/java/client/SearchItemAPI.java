@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Playlist;
 import models.SpotifyTrackURI;
 import models.Track;
+import org.assertj.core.util.VisibleForTesting;
 import utility.Utils;
 import xmlparser.ITunesXMLFileParser;
 
@@ -24,12 +25,13 @@ class SearchItemAPI extends SpotifyClient {
     }
 
     String buildSpotifyTrackJsonStringList() throws IOException {
-        ArrayList<String> spotifyTrackJsonStringList = buildSpotifyTrackJsonStringListByItemSearchAPI(ITunesXMLFileParser.parse(getXmlFile()), getToken());
+        ArrayList<String> spotifyTrackJsonStringList = buildSpotifyTrackJsonStringListByItemSearchAPI(ITunesXMLFileParser.parse(getXmlFile()));
         ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = buildListOfSpotifyTrackURIFromJsonString(spotifyTrackJsonStringList);
         return buildSpotifyTrackURIJsonString(listOfSpotifyTrackURI);
     }
 
-    private static String receiveSpotifyTrackJsonStringByItemSearchAPI(Track track, String token) throws IOException, InterruptedException {
+    @VisibleForTesting
+    String receiveSpotifyTrackJsonStringByItemSearchAPI(Track track) throws IOException, InterruptedException {
 
         String trackNameURL = uRLify(track.getTrackName());
         String artistNameURL = uRLify(track.getArtistName());
@@ -40,7 +42,7 @@ class SearchItemAPI extends SpotifyClient {
                         "track:'" + trackNameURL +
                         "'&type=track" +
                         "&limit=1"))
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + getToken())
                 .GET()
                 .build();
 
@@ -58,12 +60,12 @@ class SearchItemAPI extends SpotifyClient {
         return response.body();
     }
     
-    private static ArrayList<String> buildSpotifyTrackJsonStringListByItemSearchAPI(ArrayList<Track> currentTracks, String token) {
+    private ArrayList<String> buildSpotifyTrackJsonStringListByItemSearchAPI(ArrayList<Track> currentTracks) {
 
         ArrayList<String> jsonTrackList = new ArrayList<>();
         currentTracks.forEach((track) -> {
             try {
-                jsonTrackList.add(receiveSpotifyTrackJsonStringByItemSearchAPI(track, token));
+                jsonTrackList.add(receiveSpotifyTrackJsonStringByItemSearchAPI(track));
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

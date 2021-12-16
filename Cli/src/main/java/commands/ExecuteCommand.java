@@ -10,7 +10,7 @@ import models.TokenManager;
 import models.SpotifyTrackURI;
 import picocli.CommandLine;
 import client.AddItemToPlaylistAPI;
-import client.CreateNewPlaylistAPI;
+import client.BuildEmptyPlaylistAPI;
 import client.SearchItemAPI;
 import xmlparser.ITunesXMLFileParser;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class ExecuteCommand implements Runnable, Command {
         Playlist playlist = createPlaylist();
 
         String jsonPlaylist = serializePlaylist(playlist);
-        String playlistResponseBody = CreateNewPlaylistAPI.createNewPlaylist(playlist, jsonPlaylist, new TokenManager().getToken());
+        String playlistResponseBody = BuildEmptyPlaylistAPI.createNewPlaylist(jsonPlaylist, new TokenManager().getToken());
         SpotifyPlaylistID spotifyPlaylistID = getPlaylistURI(playlistResponseBody);
 
         AddItemToPlaylistAPI.addItemToPlaylist(jsonTrackURIs, spotifyPlaylistID.getValue(), new TokenManager().getToken());

@@ -17,10 +17,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 public class SearchItemAPI extends SpotifyClient {
-    private final String xmlFile;
 
     public SearchItemAPI(String xmlFile) {
-        this.xmlFile = xmlFile;
+        super(xmlFile);
     }
 
     public String buildSpotifyTrackJsonStringList() throws IOException {
@@ -29,7 +28,7 @@ public class SearchItemAPI extends SpotifyClient {
         return buildSpotifyTrackURIJsonString(listOfSpotifyTrackURI);
     }
 
-    static String receiveSpotifyTrackJsonStringByItemSearchAPI(Track track, String token) throws IOException, InterruptedException {
+    private static String receiveSpotifyTrackJsonStringByItemSearchAPI(Track track, String token) throws IOException, InterruptedException {
 
         String trackNameURL = uRLify(track.getTrackName());
         String artistNameURL = uRLify(track.getArtistName());
@@ -58,7 +57,7 @@ public class SearchItemAPI extends SpotifyClient {
         return response.body();
     }
     
-    static ArrayList<String> buildSpotifyTrackJsonStringListByItemSearchAPI(ArrayList<Track> currentTracks, String token) {
+    private static ArrayList<String> buildSpotifyTrackJsonStringListByItemSearchAPI(ArrayList<Track> currentTracks, String token) {
 
         ArrayList<String> jsonTrackList = new ArrayList<>();
         currentTracks.forEach((track) -> {
@@ -73,7 +72,7 @@ public class SearchItemAPI extends SpotifyClient {
         return jsonTrackList;
     }
 
-    ArrayList<SpotifyTrackURI> buildListOfSpotifyTrackURIFromJsonString (ArrayList<String> spotifyTrackJsonStringList) throws IOException {
+    private ArrayList<SpotifyTrackURI> buildListOfSpotifyTrackURIFromJsonString (ArrayList<String> spotifyTrackJsonStringList) throws IOException {
         ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = new ArrayList<>();
         for (String aJsonString : spotifyTrackJsonStringList ) {
             listOfSpotifyTrackURI.add(this.getObjectMapper().readValue(aJsonString, SpotifyTrackURI.class));
@@ -81,7 +80,7 @@ public class SearchItemAPI extends SpotifyClient {
         return listOfSpotifyTrackURI;
     }
 
-    String buildSpotifyTrackURIJsonString (ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI) throws JsonProcessingException {
+    private String buildSpotifyTrackURIJsonString (ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI) throws JsonProcessingException {
         ObjectNode rootNode = this.getObjectMapper().createObjectNode();
         ArrayNode arrayNode = rootNode.putArray("uris");
         listOfSpotifyTrackURI.forEach((aSpotifyTrackURI) -> arrayNode.add(aSpotifyTrackURI.getUriName()));
@@ -94,16 +93,4 @@ public class SearchItemAPI extends SpotifyClient {
         s = s.replaceAll(" ", "%20");
         return s;
     }
-
-    public String getXmlFile() {
-        return xmlFile;
-    }
-
 }
-
-
-
-
-
-
-

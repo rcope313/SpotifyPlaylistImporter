@@ -158,14 +158,16 @@ public class ITunesXMLFileParserTest {
 
         ArrayList<Track> instantiatedTrackList1 = ITunesXMLFileParser.parse
                 ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml");
-        for (int idx = 0; idx < instantiatedTrackList1.size(); idx++) {
+        for (int idx = 0; idx < p1.size(); idx++) {
             assertThat(instantiatedTrackList1.get(idx)).isEqualTo(p1.get(idx));
         }
 
         ArrayList<Track> instantiatedTrackList2 = ITunesXMLFileParser.parse
                 ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml");
-        for (int idx = 0; idx < instantiatedTrackList2.size(); idx++) {
-            assertThat(instantiatedTrackList2.get(idx)).isEqualTo(p2.get(idx));
+        for (int idx = 0; idx < p2.size(); idx++) {
+            assertThat(instantiatedTrackList2.get(idx))
+                    .withFailMessage("Idx %s is incorrect", idx)
+                    .isEqualTo(p2.get(idx));
         }
     }
 }

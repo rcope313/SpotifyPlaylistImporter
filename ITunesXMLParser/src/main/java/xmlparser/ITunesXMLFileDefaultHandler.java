@@ -3,63 +3,56 @@ package xmlparser;
 import models.Track;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
+
 import java.util.ArrayList;
 
 public class ITunesXMLFileDefaultHandler extends DefaultHandler {
 
-    private final StringBuilder currentHandlerStringValue = new StringBuilder();
-    private ArrayList<Track> handlerResultTrackList;
-
-    @Override
-    public void startDocument() {
-        handlerResultTrackList = new ArrayList<>();
-    }
+    private final StringBuilder stringBuilder = new StringBuilder();
+    private final ArrayList<Track> handlerResultTrackList = new ArrayList<>();
+    private Track currentTrack = new Track();
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        String trackName = null;
-        String artistName = null;
-        String albumName = null;
-        String genre = null;
-        int year = 0;
 
-        if (trackName != null && trackName.equals("Waiting For Input")) {
-            trackName = currentHandlerStringValue.toString();
+        if (currentTrack.getTrackName() != null && currentTrack.getTrackName().equals("Waiting For Input")) {
+            currentTrack.setTrackName(stringBuilder.toString());
         }
-        if (currentHandlerStringValue.toString().equals("Name")) {
-            trackName = "Waiting For Input";
+        if (stringBuilder.toString().equals("Name")) {
+            currentTrack.setTrackName("Waiting For Input");
         }
-        if (artistName != null && artistName.equals("Waiting For Input")) {
-            artistName = currentHandlerStringValue.toString();
+        if (currentTrack.getArtistName() != null && currentTrack.getArtistName().equals("Waiting For Input")) {
+            currentTrack.setArtistName(stringBuilder.toString());
         }
-        if (currentHandlerStringValue.toString().equals("Artist")) {
-            artistName = "Waiting For Input";
+        if (stringBuilder.toString().equals("Artist")) {
+            currentTrack.setArtistName("Waiting For Input");
         }
-        if (albumName != null && albumName.equals("Waiting For Input")) {
-            albumName = currentHandlerStringValue.toString();
+        if (currentTrack.getAlbumName() != null && currentTrack.getAlbumName().equals("Waiting For Input")) {
+            currentTrack.setAlbumName(stringBuilder.toString());
         }
-        if (currentHandlerStringValue.toString().equals("Album")) {
-            albumName = "Waiting For Input";
+        if (stringBuilder.toString().equals("Album")) {
+            currentTrack.setAlbumName("Waiting For Input");
         }
-        if (genre != null && genre.equals("Waiting For Input")) {
-            genre = currentHandlerStringValue.toString();
+        if (currentTrack.getGenre() != null && currentTrack.getGenre().equals("Waiting For Input")) {
+            currentTrack.setGenre(stringBuilder.toString());
         }
-        if (currentHandlerStringValue.toString().equals("Genre")) {
-            genre = "Waiting For Input";
+        if (stringBuilder.toString().equals("Genre")) {
+            currentTrack.setGenre("Waiting For Input");
         }
-        if (year == -1) {
-            year = Integer.parseInt(currentHandlerStringValue.toString());
-            handlerResultTrackList.add(new Track(trackName, artistName, albumName, genre, year));
+        if (currentTrack.getYear() == -1) {
+            currentTrack.setYear(Integer.valueOf(stringBuilder.toString()));
+            handlerResultTrackList.add(currentTrack);
+            currentTrack = new Track();
         }
-        if (currentHandlerStringValue.toString().equals("Year")) {
-            year = -1;
+        if (stringBuilder.toString().equals("Year")) {
+            currentTrack.setYear(-1);
         }
-        currentHandlerStringValue.setLength(0);
+        stringBuilder.setLength(0);
     }
 
     @Override
-    public void characters(char[] ch, int start, int length)  {
-        currentHandlerStringValue.append(ch, start, length);
+    public void characters(char ch[], int start, int length) {
+        stringBuilder.append(ch, start, length);
     }
 
     public ArrayList<Track> getHandlerResultTrackList() {

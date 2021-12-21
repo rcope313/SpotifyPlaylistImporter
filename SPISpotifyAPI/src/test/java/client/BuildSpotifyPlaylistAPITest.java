@@ -12,8 +12,8 @@ public class BuildSpotifyPlaylistAPITest {
     Playlist oneSongPlaylist, fullPlaylist;
 
     void initData() throws IOException, InterruptedException {
-        iTunesXMLFileOneSong = "src/main/resources/ITunesXMLFileOneSong.xml";
-        iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
+        iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
+        iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
 
         oneSongPlaylist = new Playlist("One Song Playlist", "A playlist of one song", true);
         fullPlaylist = new Playlist("Full Playlist", "a playlist of 20 songs", false);

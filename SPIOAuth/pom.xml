@@ -3,39 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>project2</artifactId>
+        <artifactId>spotifyplaylistimporter</artifactId>
         <groupId>org.example</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Cli</artifactId>
+    <artifactId>SPIOAuth</artifactId>
     <dependencies>
         <dependency>
-            <groupId>io.micronaut.picocli</groupId>
-            <artifactId>micronaut-picocli</artifactId>
-            <version>4.0.1</version>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>SpotifyAPI</artifactId>
+            <artifactId>SPICore</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>ITunesXMLParser</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>OAuth</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>io.micronaut.starter</groupId>
+            <artifactId>micronaut-micronaut-cli</artifactId>
+            <version>3.2.0</version>
         </dependency>
     </dependencies>
-
 
     <properties>
         <maven.compiler.source>14</maven.compiler.source>

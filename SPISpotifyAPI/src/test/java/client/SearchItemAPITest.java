@@ -18,8 +18,8 @@ public class SearchItemAPITest {
     Playlist oneSongPlaylist, fullPlaylist;
 
     void initData() {
-        iTunesXMLFileOneSong = "src/main/resources/ITunesXMLFileOneSong.xml";
-        iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
+        iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
+        iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
 
         oneSongTrackList = ITunesXMLFileParser.parse(iTunesXMLFileOneSong);
         fullPlaylistTrackList = ITunesXMLFileParser.parse(iTunesXMLFileFullPlaylist);

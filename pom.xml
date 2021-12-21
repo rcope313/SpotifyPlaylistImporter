@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>project2</artifactId>
+    <artifactId>spotifyplaylistimporter</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>Core</module>
-        <module>Cli</module>
-        <module>ItunesXMLParser</module>
-        <module>OAuth</module>
-        <module>SpotifyAPI</module>
+        <module>SPICore</module>
+        <module>SPICli</module>
+        <module>SPIItunesXMLParser</module>
+        <module>SPIOAuth</module>
+        <module>SPISpotifyAPI</module>
     </modules>
     <dependencies>
         <dependency>

@@ -2,26 +2,19 @@ package client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Playlist;
-import models.Track;
 import org.junit.Test;
-import xmlparser.ITunesXMLFileParser;
 import java.io.IOException;
-import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.*;
 
 public class BuildEmptyPlaylistAPITest {
     
     String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist;
-    ArrayList<Track> oneSongTrackList, fullPlaylistTrackList;
     BuildEmptyPlaylistAPI buildEmptyOneSongPlaylist, buildEmptyFullPlaylist;
     Playlist oneSongPlaylist, fullPlaylist;
 
     void initData() {
         iTunesXMLFileOneSong = "src/main/resources/ITunesXMLFileOneSong.xml";
         iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
-
-        oneSongTrackList = ITunesXMLFileParser.parse(iTunesXMLFileOneSong);
-        fullPlaylistTrackList = ITunesXMLFileParser.parse(iTunesXMLFileFullPlaylist);
 
         oneSongPlaylist = new Playlist("One Song Playlist", "A playlist of one song", true);
         fullPlaylist = new Playlist("Full Playlist", "a playlist of 20 songs", false);

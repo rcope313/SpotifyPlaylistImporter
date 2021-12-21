@@ -2,9 +2,12 @@ package client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Playlist;
+import models.SpotifyPlaylistID;
 import models.Track;
 import org.junit.Test;
 import xmlparser.ITunesXMLFileParser;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.*;
 
@@ -28,7 +31,19 @@ public class BuildEmptyPlaylistAPITest {
         buildEmptyOneSongPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist);
         buildEmptyFullPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist);
     }
-    
+
+    @Test
+    public void itRequestsCreatePlaylistAndReceivesHTTPPostResponseBody() throws IOException, InterruptedException {
+        this.initData();
+        String jsonPlaylist1 = buildEmptyOneSongPlaylist.serializePlaylistToJsonString();
+        String jsonNewPlaylist1 = buildEmptyOneSongPlaylist.createNewPlaylist(jsonPlaylist1);
+        assertThat(buildEmptyOneSongPlaylist.getPlaylistURI(jsonNewPlaylist1)).isInstanceOf(SpotifyPlaylistID.class);
+
+        String jsonPlaylist2 = buildEmptyFullPlaylist.serializePlaylistToJsonString();
+        String jsonNewPlaylist2 = buildEmptyFullPlaylist.createNewPlaylist(jsonPlaylist2);
+        assertThat(buildEmptyFullPlaylist.getPlaylistURI(jsonNewPlaylist2)).isInstanceOf(SpotifyPlaylistID.class);
+    }
+
     @Test
     public void itSerializesJsonStringToPlaylist() throws JsonProcessingException {
         this.initData();

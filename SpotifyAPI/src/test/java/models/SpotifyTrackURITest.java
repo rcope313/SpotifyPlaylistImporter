@@ -16,7 +16,6 @@ public class SpotifyTrackURITest {
     @Test
     public void itDeserializesJsonValueIntoPlayListIDBean() throws IOException {
         this.initData();
-
         SpotifyTrackURI spotifyTrackURI = new ObjectMapper().readValue(jsonSpotifySearchItem, SpotifyTrackURI.class);
         assertThat(spotifyTrackURI.getUriName()).isEqualTo("spotify:track:0COqiPhxzoWICwFCS4eZcp");
     }

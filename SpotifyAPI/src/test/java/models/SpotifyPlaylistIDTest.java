@@ -18,7 +18,6 @@ public class SpotifyPlaylistIDTest {
     @Test
     public void itDeserializesJsonValueIntoPlayListIDBean() throws IOException {
         this.initData();
-
         SpotifyPlaylistID spotifyPlaylistID = new ObjectMapper().readValue(jsonPlaylistOutputExample, SpotifyPlaylistID.class);
         assertThat(spotifyPlaylistID.getValue()).isEqualTo("3ihH414S6RcPZWychEVQTB");
     }

@@ -21,6 +21,15 @@ public class BuildSpotifyPlaylistAPITest {
         buildOneSongPlaylist = new BuildSpotifyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist);
         buildFullPlaylist = new BuildSpotifyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist);
     }
+
+    @Test
+    public void itAddsTracksToPlaylist() throws IOException, InterruptedException {
+        this.initData();
+        var response1 = buildOneSongPlaylist.addSpotifyTracksToPlaylist();
+        var response2 = buildFullPlaylist.addSpotifyTracksToPlaylist();
+        assertThat(response1.substring(0,3)).isEqualTo("201");
+        assertThat(response2.substring(0,3)).isEqualTo("201");
+    }
     
     @Test
     public void testClassFields() throws IOException, InterruptedException {

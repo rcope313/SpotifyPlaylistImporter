@@ -5,7 +5,7 @@ import models.Playlist;
 
 public abstract class SpotifyClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String token = "BQB-L0q4SM-MIe9Yx8ylnmLsF6qPMh6n4ZsnnGvLUSg_Qp7jHSKgMgJNx-FpQsjKk5lxm1-mowDseXi7ZUTuyfSi-40BBR6P1sqEkRS4FJV7FCtNQQuTdROCsTuMqjFD8Uf3kG8dnH6LSF05c_f08oBpBxnBkEziMXE7hNKCv2xMPK_LslEjl3QpkikPUGl8qKsyO0j3T3nDzbD7JKL3zHc";
+    private final String token = "BQAIrJFrePtQGsm9kxv8p8wBs11pZN7fAoIPD8Rl4KKi1l4uiQlSmKPZpIbCvkH_LYs-yEnRaxWBmKgM5XX_yCSihSlcFMzQRx_O3D-w-Ioge0NUixUlN0cOgQXJ6YGPm80Y3TkmpUcKFGQE8SjIXn8ZWlsrKUY8d71FabTlY34EYbSMmgTFf8kA7nIIzafHr2B0je6WOoeG1v2Fe4tl_Lc";
     private final String xmlFile;
     private final Playlist playlist;
 

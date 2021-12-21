@@ -20,11 +20,10 @@ public class BuildSpotifyPlaylistAPI extends SpotifyClient{
         super(xmlFile, playlist);
     }
 
-    public String addSpotifyTracksToEmptyPlaylist() throws IOException, InterruptedException {
-
+    public String addSpotifyTracksToPlaylist() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.spotify.com/v1/playlists/" + getSpotifyPlaylistID() + "/tracks"))
-                .headers("Authorization", "Bearer " + getObjectMapper(),
+                .uri(URI.create("https://api.spotify.com/v1/playlists/" + getSpotifyPlaylistID().getValue() + "/tracks"))
+                .headers("Authorization", "Bearer " + getToken(),
                          "Content-Type", "application/json")
                 .POST(HttpRequest
                         .BodyPublishers

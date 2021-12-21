@@ -37,11 +37,17 @@ public class BuildEmptyPlaylistAPITest {
         this.initData();
         String jsonPlaylist1 = buildEmptyOneSongPlaylist.serializePlaylistToJsonString();
         String jsonNewPlaylist1 = buildEmptyOneSongPlaylist.createNewPlaylist(jsonPlaylist1);
-        assertThat(buildEmptyOneSongPlaylist.getPlaylistURI(jsonNewPlaylist1)).isInstanceOf(SpotifyPlaylistID.class);
+        assertThat(buildEmptyOneSongPlaylist
+                .getPlaylistURI(jsonNewPlaylist1)
+                .getValue().length())
+                .isEqualTo(22);
 
         String jsonPlaylist2 = buildEmptyFullPlaylist.serializePlaylistToJsonString();
         String jsonNewPlaylist2 = buildEmptyFullPlaylist.createNewPlaylist(jsonPlaylist2);
-        assertThat(buildEmptyFullPlaylist.getPlaylistURI(jsonNewPlaylist2)).isInstanceOf(SpotifyPlaylistID.class);
+        assertThat(buildEmptyFullPlaylist
+                .getPlaylistURI(jsonNewPlaylist2)
+                .getValue().length())
+                .isEqualTo(22);
     }
 
     @Test

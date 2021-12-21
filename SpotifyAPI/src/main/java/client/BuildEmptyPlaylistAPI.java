@@ -25,7 +25,7 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
     }
 
     @VisibleForTesting
-    SpotifyPlaylistID getPlaylistURI (String playlistResponseBody) throws IOException {
+    SpotifyPlaylistID getPlaylistURI(String playlistResponseBody) throws IOException {
         return this.getObjectMapper().readValue(playlistResponseBody, SpotifyPlaylistID.class);
     }
 

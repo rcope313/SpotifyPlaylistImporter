@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import picocli.CommandLine;
 
 @CommandLine.Command(name = "execute")
-public class ExecuteCommand implements Runnable, Command {
+public class ExecuteCommand implements Runnable  {
 
     @CommandLine.Option(names = {"-f", "--file"}, required = true)
     public String xmlFile;

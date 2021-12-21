@@ -9,7 +9,6 @@ import java.util.concurrent.Callable;
         name = "myapp",
         mixinStandardHelpOptions = true,
         version = "1.0")
-
 class SpotifyCli implements Callable<Integer> {
 
     @Override
@@ -18,9 +17,6 @@ class SpotifyCli implements Callable<Integer> {
     }
 
     public static void main(String... args) { // bootstrap the application
-
         System.exit(new CommandLine(new SpotifyCli()).execute(args));
     }
 }
-
-

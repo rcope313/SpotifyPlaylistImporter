@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 @CommandLine.Command(name = "auth")
-public class AuthCommand implements Runnable, Command {
+public class AuthCommand implements Runnable {
 
     final ClientConfig clientConfig;
     final HttpServerAuth httpServerAuth;

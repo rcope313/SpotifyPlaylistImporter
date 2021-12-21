@@ -32,7 +32,15 @@ public class SearchItemAPITest {
     }
 
     @Test
-    public void itBuildAJsonStringByClassConstruction() throws IOException {
+    public void itThrowsIllegalStateExceptionWithInvalidOrExpiredAccessToken() {
+        this.initData();
+        assertThatThrownBy(()
+                -> searchItemAPIOneSong.buildJsonStringOfListOfSpotifyTrackURI())
+                .isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
+    public void itBuildAJsonString() throws IOException {
         this.initData();
         assertThat(searchItemAPIOneSong.buildJsonStringOfListOfSpotifyTrackURI().length()).isEqualTo(49);
         assertThat(searchItemAPIFullPlaylist.buildJsonStringOfListOfSpotifyTrackURI().length()).isEqualTo(790);

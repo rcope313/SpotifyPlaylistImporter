@@ -88,6 +88,9 @@ class SearchItemAPI extends SpotifyClient {
         if (response.body() == null) {
             System.out.print("trackNameURL unable to be added");
         }
+        if (response.statusCode() == 401) {
+            throw new IllegalStateException("Access token invalid or expired. Please reauthenticate");
+        }
         return response.body();
     }
 

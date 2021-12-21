@@ -24,15 +24,23 @@ public class BuildEmptyPlaylistAPITest {
     }
 
     @Test
+    public void itThrowsIllegalStateExceptionWithInvalidOrExpiredAccessToken() {
+        this.initData();
+        assertThatThrownBy(()
+                -> buildEmptyFullPlaylist.buildSpotifyEmptyPlaylistAndSpotifyPlaylistID())
+                .isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
     public void itBuildsEmptyPlaylistAndSpotifyPlaylistID() throws IOException, InterruptedException {
         this.initData();
         assertThat(buildEmptyOneSongPlaylist
-                .buildSpotifyEmptyPlaylistWithNewSpotifyPlaylistID()
+                .buildSpotifyEmptyPlaylistAndSpotifyPlaylistID()
                 .getValue().length())
                 .isEqualTo(22);
 
         assertThat(buildEmptyFullPlaylist
-                .buildSpotifyEmptyPlaylistWithNewSpotifyPlaylistID()
+                .buildSpotifyEmptyPlaylistAndSpotifyPlaylistID()
                 .getValue().length())
                 .isEqualTo(22);
     }

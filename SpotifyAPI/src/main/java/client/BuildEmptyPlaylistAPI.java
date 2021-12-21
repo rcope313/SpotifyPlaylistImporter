@@ -18,7 +18,7 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
         super(xmlFile, playlist);
     }
 
-    SpotifyPlaylistID buildSpotifyEmptyPlaylistWithNewSpotifyPlaylistID() throws IOException, InterruptedException {
+    SpotifyPlaylistID buildSpotifyEmptyPlaylistAndSpotifyPlaylistID() throws IOException, InterruptedException {
         String jsonPlaylist = serializePlaylistToJsonString();
         String playlistResponseBody = this.createNewPlaylist(jsonPlaylist);
         return getPlaylistURI(playlistResponseBody);
@@ -47,6 +47,9 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() == 401) {
+            throw new IllegalStateException("Access token invalid or expired. Please reauthenticate");
+        }
         return response.body();
     }
 

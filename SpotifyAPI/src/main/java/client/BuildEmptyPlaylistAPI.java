@@ -3,6 +3,8 @@ package client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Playlist;
 import models.SpotifyPlaylistID;
+import org.assertj.core.util.VisibleForTesting;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -16,21 +18,23 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
         super(xmlFile, playlist);
     }
 
-    SpotifyPlaylistID buildSpotifyEmptyPlaylist() throws IOException, InterruptedException {
-        String jsonPlaylist = serializePlaylistToJsonString(this.getPlaylist());
-        String playlistResponseBody = BuildEmptyPlaylistAPI.createNewPlaylist(jsonPlaylist, this.getToken());
+    SpotifyPlaylistID buildSpotifyEmptyPlaylistWithNewSpotifyPlaylistID() throws IOException, InterruptedException {
+        String jsonPlaylist = serializePlaylistToJsonString();
+        String playlistResponseBody = this.createNewPlaylist(jsonPlaylist);
         return getPlaylistURI(playlistResponseBody);
     }
 
-    private String serializePlaylistToJsonString(Playlist playlist) throws JsonProcessingException {
-        return this.getObjectMapper().writeValueAsString(playlist);
+    @VisibleForTesting
+    SpotifyPlaylistID getPlaylistURI (String playlistResponseBody) throws IOException {
+        return this.getObjectMapper().readValue(playlistResponseBody, SpotifyPlaylistID.class);
     }
 
     // is this hard coded??
-    static String createNewPlaylist(String jsonPlaylist, String token) throws IOException, InterruptedException {
+    @VisibleForTesting
+    String createNewPlaylist(String jsonPlaylist) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.spotify.com/v1/users/1287343652/playlists"))
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + this.getToken())
                 .POST(HttpRequest
                         .BodyPublishers
                         .ofString(jsonPlaylist))
@@ -46,7 +50,8 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
         return response.body();
     }
 
-    private SpotifyPlaylistID getPlaylistURI (String playlistResponseBody) throws IOException {
-        return this.getObjectMapper().readValue(playlistResponseBody, SpotifyPlaylistID.class);
+    @VisibleForTesting
+    String serializePlaylistToJsonString() throws JsonProcessingException {
+        return this.getObjectMapper().writeValueAsString(this.getPlaylist());
     }
 }

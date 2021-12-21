@@ -12,9 +12,9 @@ import java.time.Duration;
 
 public class BuildSpotifyPlaylistAPI extends SpotifyClient{
     private final String spotifyTrackJsonStringList =
-            new SearchItemAPI(getXmlFile(), getPlaylist()).buildSpotifyTrackJsonStringList();
+            new SearchItemAPI(getXmlFile(), getPlaylist()).buildJsonStringOfListOfSpotifyTrackURI();
     private final SpotifyPlaylistID spotifyPlaylistID =
-            new BuildEmptyPlaylistAPI(getXmlFile(), getPlaylist()).buildSpotifyEmptyPlaylist();
+            new BuildEmptyPlaylistAPI(getXmlFile(), getPlaylist()).buildSpotifyEmptyPlaylistWithNewSpotifyPlaylistID();
 
     public BuildSpotifyPlaylistAPI(String xmlFile, Playlist playlist) throws IOException, InterruptedException {
         super(xmlFile, playlist);

@@ -7,9 +7,7 @@ import models.Playlist;
 import models.SpotifyTrackURI;
 import models.Track;
 import org.assertj.core.util.VisibleForTesting;
-import utility.Utils;
 import xmlparser.ITunesXMLFileParser;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -24,14 +22,47 @@ class SearchItemAPI extends SpotifyClient {
         super(xmlFile, playlist);
     }
 
-    String buildSpotifyTrackJsonStringList() throws IOException {
-        ArrayList<String> spotifyTrackJsonStringList = buildSpotifyTrackJsonStringListByItemSearchAPI(ITunesXMLFileParser.parse(getXmlFile()));
-        ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = buildListOfSpotifyTrackURIFromJsonString(spotifyTrackJsonStringList);
-        return buildSpotifyTrackURIJsonString(listOfSpotifyTrackURI);
+    String buildJsonStringOfListOfSpotifyTrackURI() throws IOException {
+        ArrayList<String> spotifyTrackJsonStringList = buildListOfJsonStringByItemSearchAPI(ITunesXMLFileParser.parse(getXmlFile()));
+        ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = buildListOfSpotifyTrackURIFromListOfJsonString(spotifyTrackJsonStringList);
+        return buildJsonStringOfListOfSpotifyTrackURI(listOfSpotifyTrackURI);
     }
 
     @VisibleForTesting
-    String receiveSpotifyTrackJsonStringByItemSearchAPI(Track track) throws IOException, InterruptedException {
+    String buildJsonStringOfListOfSpotifyTrackURI(ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI) throws JsonProcessingException {
+        ObjectNode rootNode = this.getObjectMapper().createObjectNode();
+        ArrayNode arrayNode = rootNode.putArray("uris");
+        listOfSpotifyTrackURI.forEach((aSpotifyTrackURI) -> arrayNode.add(aSpotifyTrackURI.getUriName()));
+
+        return this.getObjectMapper().writeValueAsString(rootNode);
+    }
+
+    @VisibleForTesting
+    ArrayList<SpotifyTrackURI> buildListOfSpotifyTrackURIFromListOfJsonString(ArrayList<String> spotifyTrackJsonStringList) throws IOException {
+        ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = new ArrayList<>();
+        for (String aJsonString : spotifyTrackJsonStringList ) {
+            listOfSpotifyTrackURI.add(this.getObjectMapper().readValue(aJsonString, SpotifyTrackURI.class));
+        }
+        return listOfSpotifyTrackURI;
+    }
+
+    @VisibleForTesting
+    ArrayList<String> buildListOfJsonStringByItemSearchAPI(ArrayList<Track> currentTracks) {
+        ArrayList<String> jsonTrackList = new ArrayList<>();
+        currentTracks.forEach((track) -> {
+            try {
+                jsonTrackList.add(receiveAJsonStringByItemSearchAPI(track));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        return jsonTrackList;
+    }
+
+    @VisibleForTesting
+    String receiveAJsonStringByItemSearchAPI(Track track) throws IOException, InterruptedException {
 
         String trackNameURL = uRLify(track.getTrackName());
         String artistNameURL = uRLify(track.getArtistName());
@@ -59,39 +90,8 @@ class SearchItemAPI extends SpotifyClient {
         }
         return response.body();
     }
-    
-    private ArrayList<String> buildSpotifyTrackJsonStringListByItemSearchAPI(ArrayList<Track> currentTracks) {
 
-        ArrayList<String> jsonTrackList = new ArrayList<>();
-        currentTracks.forEach((track) -> {
-            try {
-                jsonTrackList.add(receiveSpotifyTrackJsonStringByItemSearchAPI(track));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        return jsonTrackList;
-    }
-
-    private ArrayList<SpotifyTrackURI> buildListOfSpotifyTrackURIFromJsonString (ArrayList<String> spotifyTrackJsonStringList) throws IOException {
-        ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = new ArrayList<>();
-        for (String aJsonString : spotifyTrackJsonStringList ) {
-            listOfSpotifyTrackURI.add(this.getObjectMapper().readValue(aJsonString, SpotifyTrackURI.class));
-        }
-        return listOfSpotifyTrackURI;
-    }
-
-    private String buildSpotifyTrackURIJsonString (ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI) throws JsonProcessingException {
-        ObjectNode rootNode = this.getObjectMapper().createObjectNode();
-        ArrayNode arrayNode = rootNode.putArray("uris");
-        listOfSpotifyTrackURI.forEach((aSpotifyTrackURI) -> arrayNode.add(aSpotifyTrackURI.getUriName()));
-
-        return this.getObjectMapper().writeValueAsString(rootNode);
-    }
-
-    static String uRLify(String s) {
+    private static String uRLify(String s) {
         s = s.trim();
         s = s.replaceAll(" ", "%20");
         return s;

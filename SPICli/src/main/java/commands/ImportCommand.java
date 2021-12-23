@@ -8,6 +8,8 @@ import java.io.IOException;
 @CommandLine.Command(name = "import")
 public class ImportCommand implements Runnable  {
 
+    @CommandLine.Spec
+    CommandLine.Model.CommandSpec spec;
     @CommandLine.Option(names = {"-f", "--file"}, required = true)
     public String xmlFile;
     @CommandLine.Option(names = {"-pn", "--playlist"}, required = true)
@@ -19,6 +21,9 @@ public class ImportCommand implements Runnable  {
 
     @Override
     public void run() {
+        // ** use to create tests
+        spec.commandLine().getOut().println(this);
+
         try {
             this.createBuildSpotifyPlaylistAPI().addSpotifyTracksToPlaylist();
         } catch (Exception e) {

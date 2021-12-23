@@ -6,15 +6,15 @@ import java.io.IOException;
 
 public class PostResponse {
     @JsonProperty("access_token")
-    public final String accessToken;
+    private final String accessToken;
     @JsonProperty("token_type")
-    public final String tokenType;
+    private final String tokenType;
     @JsonProperty("expires_in")
-    public final Integer expiresIn;
+    private final Integer expiresIn;
     @JsonProperty("refresh_token")
-    public final String refreshToken;
+    private final String refreshToken;
     @JsonProperty("scope")
-    public final String scope;
+    private final String scope;
 
     public PostResponse(String accessToken, String tokenType, Integer expiresIn, String refreshToken, String scope) {
         this.accessToken = accessToken;

@@ -1,11 +1,11 @@
 package models;
 
 public class PostRequest {
-    public final String grantType;
-    public final String code;
-    public final String redirectUri;
-    public final String clientId;
-    public final String clientSecret;
+    private final String grantType;
+    private final String code;
+    private final String redirectUri;
+    private final String clientId;
+    private final String clientSecret;
 
     public PostRequest(String code) {
         this.grantType = "authorization_code";

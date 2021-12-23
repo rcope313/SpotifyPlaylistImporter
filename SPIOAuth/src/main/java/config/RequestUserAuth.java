@@ -1,39 +1,35 @@
 package config;
 
 import io.micronaut.http.uri.UriBuilder;
-import java.io.IOException;
 import java.net.URI;
 import java.util.Random;
 
-final public class ClientConfig {
-    public String url;
-    public String clientId;
-    public String responseType;
-    public String scope;
+public class RequestUserAuth {
+    private final String url;
+    private final String clientId;
+    private final String responseType;
+    private final String scope;
+    private final String redirectUri;
 
-    public ClientConfig(String url, String clientId, String responseType, String scope) {
-        this.url = url;
-        this.clientId = clientId;
-        this.responseType = responseType;
-        this.scope = scope;
-
+    public RequestUserAuth() {
+        this.url = "https://accounts.spotify.com/authorize";
+        this.clientId = "58f5ea655fc64389ae8f53047aa14201";
+        this.responseType = "code";
+        this.scope = "playlist-modify-public playlist-modify-private";
+        this.redirectUri = "http://localhost:2000/authorize";
     }
 
-    public URI generateAuthUri(String redirectUri) throws IOException, InterruptedException {
-
-        URI authURI = UriBuilder.of(url)
+    public URI generateAuthUri() {
+        return UriBuilder.of(url)
                 .queryParam("client_id", clientId)
                 .queryParam("response_type", responseType)
                 .queryParam("redirect_uri", redirectUri)
                 .queryParam("scope", scope)
                 .queryParam("state", generateRandomAlphaNumericString())
                 .build();
-
-        return authURI;
     }
 
     private static String generateRandomAlphaNumericString () {
-
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 11;
@@ -47,5 +43,4 @@ final public class ClientConfig {
 
         return generatedString;
     }
-
 }

@@ -1,11 +1,11 @@
 
 import commands.AuthCommand;
-import commands.ExecuteCommand;
+import commands.ImportCommand;
 import picocli.CommandLine;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(
-        subcommands = {AuthCommand.class, ExecuteCommand.class},
+        subcommands = {AuthCommand.class, ImportCommand.class},
         name = "myapp",
         mixinStandardHelpOptions = true,
         version = "1.0")

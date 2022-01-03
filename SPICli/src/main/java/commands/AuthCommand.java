@@ -1,7 +1,7 @@
 package commands;
 
 import auth.HttpServerAuth;
-import config.RequestUserAuth;
+import auth.RequestUserAuth;
 import picocli.CommandLine;
 
 import java.io.IOException;

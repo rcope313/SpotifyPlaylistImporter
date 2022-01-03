@@ -1,4 +1,4 @@
-package config;
+package auth;
 
 import io.micronaut.http.uri.UriBuilder;
 import java.net.URI;

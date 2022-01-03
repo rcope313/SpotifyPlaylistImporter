@@ -1,4 +1,4 @@
-package config;
+package auth;
 
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;

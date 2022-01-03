@@ -3,12 +3,12 @@ package models;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
-public class HttpServerTest {
+public class HttpServerConfigTest {
 
-    HttpServer server;
+    HttpServerConfig server;
 
     void initData() {
-        server = new HttpServer();
+        server = new HttpServerConfig();
     }
 
     @Test

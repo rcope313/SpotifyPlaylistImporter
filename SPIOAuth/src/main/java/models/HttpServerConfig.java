@@ -1,12 +1,12 @@
 package models;
 
-final public class HttpServer {
+final public class HttpServerConfig {
     private final String host;
     private final int port;
     private final String context;
     private final int timeout;
 
-    public HttpServer() {
+    public HttpServerConfig() {
         this.host = "localhost";
         this.port = 2000;
         this.context = "/authorize";

@@ -16,6 +16,11 @@ public class AuthCommand implements Runnable {
         this.httpServerAuth = httpServerAuth;
     }
 
+    public static void main (String[] args) {
+        AuthCommand command = new AuthCommand(new RequestUserAuth(), new HttpServerAuth());
+        command.run();
+    }
+
     @Override
     public void run() {
         try {
@@ -39,7 +44,7 @@ public class AuthCommand implements Runnable {
     }
     private void displayAuthUrl() throws IOException, InterruptedException {
         System.out.println("Click on the link to start authentication:\n");
-//        System.out.println(requestUserAuth.generateAuthUri(httpServerAuth.httpServerConfig.getRedirectUri()));
+        System.out.println(requestUserAuth.generateAuthUri());
     }
 }
 

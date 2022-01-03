@@ -1,7 +1,7 @@
 package auth;
 
 import io.micronaut.http.uri.UriBuilder;
-import models.HttpServer;
+import models.HttpServerConfig;
 
 import java.net.URI;
 import java.util.Random;
@@ -11,21 +11,21 @@ public class RequestUserAuth {
     private final String clientId;
     private final String responseType;
     private final String scope;
-    private final HttpServer httpServer;
+    private final HttpServerConfig httpServerConfig;
 
     public RequestUserAuth() {
         this.url = "https://accounts.spotify.com/authorize";
         this.clientId = "58f5ea655fc64389ae8f53047aa14201";
         this.responseType = "code";
         this.scope = "playlist-modify-public playlist-modify-private";
-        this.httpServer = new HttpServer();
+        this.httpServerConfig = new HttpServerConfig();
     }
 
     public URI generateAuthUri() {
         return UriBuilder.of(url)
                 .queryParam("client_id", clientId)
                 .queryParam("response_type", responseType)
-                .queryParam("redirect_uri", httpServer.buildRedirectUri())
+                .queryParam("redirect_uri", httpServerConfig.buildRedirectUri())
                 .queryParam("scope", scope)
                 .queryParam("state", generateRandomAlphaNumericString())
                 .build();

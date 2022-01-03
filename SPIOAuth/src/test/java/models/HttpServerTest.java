@@ -1,6 +1,5 @@
 package models;
 
-import models.HttpServer;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 

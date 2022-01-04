@@ -27,8 +27,7 @@ public class PostResponse {
     }
 
     public static PostResponse deserializeJsonPostResponse (String jsonString) throws IOException {
-        PostResponse config = new ObjectMapper().readValue(jsonString, PostResponse.class);
-        return config;
+        return new ObjectMapper().readValue(jsonString, PostResponse.class);
     }
 
     public String getAccessToken() {

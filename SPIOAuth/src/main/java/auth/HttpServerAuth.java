@@ -20,11 +20,6 @@ public class HttpServerAuth {
         this.httpServerConfig = new HttpServerConfig();
     }
 
-    public static void main (String[] args) {
-        HttpServerAuth serverAuth = new HttpServerAuth();
-        serverAuth.start();
-    }
-
     public void start() {
         try {
             var latch = new CountDownLatch(1);

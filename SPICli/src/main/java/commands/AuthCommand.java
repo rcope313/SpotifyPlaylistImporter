@@ -40,11 +40,19 @@ public class AuthCommand implements Runnable {
 
 
     private void handleRedirectUri() throws IOException {
-         httpServerAuth.start();
+         getHttpServerAuth().start();
     }
     private void displayAuthUrl() throws IOException, InterruptedException {
         System.out.println("Click on the link to start authentication:\n");
-        System.out.println(requestUserAuth.generateAuthUri());
+        System.out.println(getRequestUserAuth().generateAuthUri());
+    }
+
+    public RequestUserAuth getRequestUserAuth() {
+        return requestUserAuth;
+    }
+
+    public HttpServerAuth getHttpServerAuth() {
+        return httpServerAuth;
     }
 }
 

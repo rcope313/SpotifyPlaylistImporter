@@ -22,24 +22,4 @@ public class PostRequest {
                 + "&client_secret=" + clientSecret
                 + "&code=" + code;
     }
-
-    public String getGrantType() {
-        return grantType;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getRedirectUri() {
-        return redirectUri;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
-    }
 }

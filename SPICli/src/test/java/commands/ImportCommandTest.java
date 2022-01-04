@@ -15,18 +15,20 @@ public class ImportCommandTest {
     ImportCommand app1, app2;
     CommandLine cmd1, cmd2;
     StringWriter sw1, sw2;
-    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist;
+    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token;
     Playlist oneSongPlaylist, fullPlaylist;
     BuildSpotifyPlaylistAPI buildSpotifyPlaylistAPI1, buildSpotifyPlaylistAPI2;
 
     void initData() throws IOException, InterruptedException {
+        token = "insert token here";
+
         iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
         oneSongPlaylist = new Playlist("One Song Playlist", null, false);
-        buildSpotifyPlaylistAPI1 = new BuildSpotifyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist);
+        buildSpotifyPlaylistAPI1 = new BuildSpotifyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist, token);
 
         iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
         fullPlaylist = new Playlist("Full Playlist", "Emo mania", true);
-        buildSpotifyPlaylistAPI2 = new BuildSpotifyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist);
+        buildSpotifyPlaylistAPI2 = new BuildSpotifyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist, token);
 
         app1 = new ImportCommand();
         cmd1 = new CommandLine(app1);

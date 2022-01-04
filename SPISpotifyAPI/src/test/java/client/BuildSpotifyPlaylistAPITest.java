@@ -7,19 +7,21 @@ import static org.assertj.core.api.Assertions.*;
 
 public class BuildSpotifyPlaylistAPITest {
 
-    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist;
+    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token;
     BuildSpotifyPlaylistAPI buildOneSongPlaylist, buildFullPlaylist;
     Playlist oneSongPlaylist, fullPlaylist;
 
     void initData() throws IOException, InterruptedException {
+        token = "insert token here";
+
         iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
         iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
 
         oneSongPlaylist = new Playlist("One Song Playlist", "A playlist of one song", true);
         fullPlaylist = new Playlist("Full Playlist", "a playlist of 20 songs", false);
 
-        buildOneSongPlaylist = new BuildSpotifyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist);
-        buildFullPlaylist = new BuildSpotifyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist);
+        buildOneSongPlaylist = new BuildSpotifyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist, token);
+        buildFullPlaylist = new BuildSpotifyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist, token);
     }
 
     @Test

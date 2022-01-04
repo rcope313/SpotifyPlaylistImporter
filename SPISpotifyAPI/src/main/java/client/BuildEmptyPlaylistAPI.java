@@ -13,9 +13,11 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 class BuildEmptyPlaylistAPI extends SpotifyClient{
+    private final String token;
 
-    BuildEmptyPlaylistAPI(String xmlFile, Playlist playlist) {
+    BuildEmptyPlaylistAPI(String xmlFile, Playlist playlist, String token) {
         super(xmlFile, playlist);
+        this.token = token;
     }
 
     SpotifyPlaylistID buildSpotifyEmptyPlaylistAndSpotifyPlaylistID() throws IOException, InterruptedException {
@@ -56,5 +58,9 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
     @VisibleForTesting
     String serializePlaylistToJsonString() throws JsonProcessingException {
         return this.getObjectMapper().writeValueAsString(this.getPlaylist());
+    }
+
+    public String getToken() {
+        return token;
     }
 }

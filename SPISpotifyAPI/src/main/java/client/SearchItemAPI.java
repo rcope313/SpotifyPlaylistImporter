@@ -18,8 +18,11 @@ import java.util.ArrayList;
 
 class SearchItemAPI extends SpotifyClient {
 
-    SearchItemAPI(String xmlFile, Playlist playlist) {
+    private final String token;
+
+    SearchItemAPI(String xmlFile, Playlist playlist, String token) {
         super(xmlFile, playlist);
+        this.token = token;
     }
 
     String buildJsonStringOfListOfSpotifyTrackURI() throws IOException {
@@ -98,5 +101,9 @@ class SearchItemAPI extends SpotifyClient {
         s = s.trim();
         s = s.replaceAll(" ", "%20");
         return s;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

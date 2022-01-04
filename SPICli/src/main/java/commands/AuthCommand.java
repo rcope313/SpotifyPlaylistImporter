@@ -4,7 +4,6 @@ import auth.HttpServerAuth;
 import auth.RequestUserAuth;
 import models.PostResponse;
 import picocli.CommandLine;
-
 import java.io.IOException;
 
 @CommandLine.Command(name = "auth")
@@ -17,21 +16,10 @@ public class AuthCommand implements Runnable {
         this.httpServerAuth = httpServerAuth;
     }
 
-    public static void main (String[] args) {
-        AuthCommand command = new AuthCommand(new RequestUserAuth(), new HttpServerAuth());
-        command.run();
-    }
-
     @Override
     public void run() {
         try {
             displayAuthUrl();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
             handleRedirectUri();
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,12 +27,10 @@ public class AuthCommand implements Runnable {
         System.exit(0);
     }
 
-
     private PostResponse handleRedirectUri() throws IOException {
-         var response = getHttpServerAuth().start();
-         return response;
+        return getHttpServerAuth().start();
     }
-    private void displayAuthUrl() throws IOException, InterruptedException {
+    private void displayAuthUrl() throws IOException {
         System.out.println("Click on the link to start authentication:\n");
         System.out.println(getRequestUserAuth().generateAuthUri());
     }
@@ -57,9 +43,3 @@ public class AuthCommand implements Runnable {
         return httpServerAuth;
     }
 }
-
-
-
-
-
-

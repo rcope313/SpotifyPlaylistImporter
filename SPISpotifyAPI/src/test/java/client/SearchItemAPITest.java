@@ -12,12 +12,14 @@ import static org.assertj.core.api.Assertions.*;
 
 public class SearchItemAPITest {
 
-    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist;
+    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token;
     ArrayList<Track> oneSongTrackList, fullPlaylistTrackList;
     SearchItemAPI searchItemAPIOneSong, searchItemAPIFullPlaylist;
     Playlist oneSongPlaylist, fullPlaylist;
 
     void initData() {
+        token = "insert token here";
+
         iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
         iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
 
@@ -27,8 +29,8 @@ public class SearchItemAPITest {
         oneSongPlaylist = new Playlist("One SongPlaylist", "A playlist of one song", true);
         fullPlaylist = new Playlist("Full Playlist", "a playlist of 20 songs", false);
 
-        searchItemAPIOneSong = new SearchItemAPI(iTunesXMLFileOneSong, oneSongPlaylist);
-        searchItemAPIFullPlaylist = new SearchItemAPI(iTunesXMLFileFullPlaylist, fullPlaylist);
+        searchItemAPIOneSong = new SearchItemAPI(iTunesXMLFileOneSong, oneSongPlaylist, token);
+        searchItemAPIFullPlaylist = new SearchItemAPI(iTunesXMLFileFullPlaylist, fullPlaylist, token);
     }
 
     @Test

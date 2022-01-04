@@ -11,13 +11,11 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 public class BuildSpotifyPlaylistAPI extends SpotifyClient{
-    private final String spotifyTrackJsonStringList =
-            new SearchItemAPI(getXmlFile(), getPlaylist()).buildJsonStringOfListOfSpotifyTrackURI();
-    private final SpotifyPlaylistID spotifyPlaylistID =
-            new BuildEmptyPlaylistAPI(getXmlFile(), getPlaylist()).buildSpotifyEmptyPlaylistAndSpotifyPlaylistID();
+    private final String token;
 
-    public BuildSpotifyPlaylistAPI(String xmlFile, Playlist playlist) throws IOException, InterruptedException {
+    public BuildSpotifyPlaylistAPI(String xmlFile, Playlist playlist, String token) {
         super(xmlFile, playlist);
+        this.token = token;
     }
 
     public String addSpotifyTracksToPlaylist() throws IOException, InterruptedException {
@@ -38,16 +36,20 @@ public class BuildSpotifyPlaylistAPI extends SpotifyClient{
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         if (response.statusCode() == 401) {
-            throw new IllegalStateException("Access token expired. Please reauthenticate");
+            throw new IllegalStateException("Access token expired. Please re-authenticate");
         }
         return response.statusCode() + response.body();
     }
 
-    public SpotifyPlaylistID getSpotifyPlaylistID() {
-        return spotifyPlaylistID;
+    public SpotifyPlaylistID getSpotifyPlaylistID() throws IOException, InterruptedException {
+        return new BuildEmptyPlaylistAPI(getXmlFile(), getPlaylist(), getToken()).buildSpotifyEmptyPlaylistAndSpotifyPlaylistID();
     }
 
-    public String getSpotifyTrackJsonStringList() {
-        return spotifyTrackJsonStringList;
+    public String getSpotifyTrackJsonStringList() throws IOException {
+        return new SearchItemAPI(getXmlFile(), getPlaylist(), getToken()).buildJsonStringOfListOfSpotifyTrackURI();
+    }
+
+    public String getToken() {
+        return token;
     }
 }

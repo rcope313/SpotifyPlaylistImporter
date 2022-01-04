@@ -32,7 +32,7 @@ public class ImportCommand implements Runnable  {
     }
 
     BuildSpotifyPlaylistAPI createBuildSpotifyPlaylistAPI() throws IOException, InterruptedException {
-        return new BuildSpotifyPlaylistAPI(getXmlFile(), this.createPlaylist());
+        return new BuildSpotifyPlaylistAPI(getXmlFile(), this.createPlaylist(), "abc");
     }
 
     Playlist createPlaylist() {

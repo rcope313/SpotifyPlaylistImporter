@@ -8,19 +8,21 @@ import static org.assertj.core.api.Assertions.*;
 
 public class BuildEmptyPlaylistAPITest {
     
-    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist;
+    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token;
     BuildEmptyPlaylistAPI buildEmptyOneSongPlaylist, buildEmptyFullPlaylist;
     Playlist oneSongPlaylist, fullPlaylist;
 
     void initData() {
+        token = "insert token here";
+
         iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
         iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
 
         oneSongPlaylist = new Playlist("One Song Playlist", "A playlist of one song", true);
         fullPlaylist = new Playlist("Full Playlist", "a playlist of 20 songs", false);
 
-        buildEmptyOneSongPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist);
-        buildEmptyFullPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist);
+        buildEmptyOneSongPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist, token);
+        buildEmptyFullPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist, token);
     }
 
     @Test

@@ -15,7 +15,7 @@ public class PostRequest {
         this.clientSecret = "fe103f0d879048da899baea87e5402a9";
     }
 
-    public String jsonBodyParameter () {
+    public String buildJsonBodyParameter() {
         return "grant_type=" + grantType
                 + "&redirect_uri=" + redirectUri
                 + "&client_id=" + clientId

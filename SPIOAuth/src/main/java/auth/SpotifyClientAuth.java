@@ -9,8 +9,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class SpotifyClientAuth {
-    String code;
-    public PostRequest postRequest;
+    private final String code;
+    private final PostRequest postRequest;
 
     SpotifyClientAuth(String code) {
         this.code = code;
@@ -23,14 +23,21 @@ public class SpotifyClientAuth {
             .headers("Content-Type", "application/x-www-form-urlencoded")
             .POST(HttpRequest
                     .BodyPublishers
-                    .ofString(postRequest.jsonBodyParameter()))
+                    .ofString(getPostRequest().buildJsonBodyParameter()))
             .build();
 
         HttpClient client = HttpClient.newBuilder()
             .build();
-
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         return PostResponse.deserializeJsonPostResponse(response.body());
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public PostRequest getPostRequest() {
+        return postRequest;
     }
 }

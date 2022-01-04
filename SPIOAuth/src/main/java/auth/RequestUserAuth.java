@@ -2,7 +2,6 @@ package auth;
 
 import io.micronaut.http.uri.UriBuilder;
 import models.HttpServerConfig;
-
 import java.net.URI;
 import java.util.Random;
 

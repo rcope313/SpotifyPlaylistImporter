@@ -7,8 +7,6 @@ import models.Playlist;
 import models.PostResponse;
 import picocli.CommandLine;
 
-import java.io.IOException;
-
 @CommandLine.Command(name = "execute")
 public class ExecuteCommand implements Runnable {
     @CommandLine.Spec
@@ -27,7 +25,6 @@ public class ExecuteCommand implements Runnable {
     public static void main (String[] args) {
         ExecuteCommand command = new ExecuteCommand();
         command.run();
-
     }
 
     @Override
@@ -41,8 +38,7 @@ public class ExecuteCommand implements Runnable {
     }
 
     BuildSpotifyPlaylistAPI createBuildSpotifyPlaylistAPI() {
-        return new BuildSpotifyPlaylistAPI
-                (getXmlFile(), this.createPlaylist(), handleRedirectUriAndReceiveAccessToken().getAccessToken());
+        return new BuildSpotifyPlaylistAPI(getXmlFile(), this.createPlaylist(), handleRedirectUriAndReceiveAccessToken().getAccessToken());
     }
 
     Playlist createPlaylist() {
@@ -52,8 +48,9 @@ public class ExecuteCommand implements Runnable {
     private PostResponse handleRedirectUriAndReceiveAccessToken() {
         return getHttpServerAuth().start();
     }
+
     private void displayAuthUrl() {
-        System.out.println("Click on the link to start authentication:\n");
+        System.out.println("Click on the link to start authentication:");
         System.out.println(getRequestUserAuth().generateAuthUri());
     }
 

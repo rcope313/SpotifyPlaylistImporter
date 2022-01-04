@@ -38,6 +38,7 @@ public class BuildSpotifyPlaylistAPI extends SpotifyClient{
         if (response.statusCode() == 401) {
             throw new IllegalStateException("Access token expired. Please re-authenticate");
         }
+        System.out.print("Playlist imported. Enjoy listening!");
         return response.statusCode() + response.body();
     }
 

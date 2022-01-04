@@ -7,9 +7,7 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
 import models.PostResponse;
-import picocli.CommandLine;
 
 public class HttpServerAuth {
 
@@ -35,7 +33,6 @@ public class HttpServerAuth {
             System.out.println("Waiting for redirect URI...");
             latch.await(httpServerConfig.getTimeout(), TimeUnit.SECONDS);
             server.stop(0);
-            System.out.println(CommandLine.Help.Ansi.ON.string("@|bold,fg(green) Success! You are now authenticated!|@"));
             return this.getPostResponse();
 
         } catch (IOException | InterruptedException e) {
@@ -47,6 +44,7 @@ public class HttpServerAuth {
         if (code == null) {
             throw new IllegalStateException("Code has not been retrieved for authentication. Please authenticate again.");
         } else {
+            System.out.print("Success! You are now authenticated!\n");
             return new SpotifyClientAuth(this.code).getAccessAndRefreshTokens();
         }
     }

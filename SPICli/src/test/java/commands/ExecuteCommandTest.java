@@ -4,22 +4,21 @@ import client.BuildSpotifyPlaylistAPI;
 import models.Playlist;
 import org.junit.Test;
 import picocli.CommandLine;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ImportCommandTest {
+public class ExecuteCommandTest {
 
     int exitCode1, exitCode2;
-    ImportCommand app1, app2;
+    ExecuteCommand app1, app2;
     CommandLine cmd1, cmd2;
     StringWriter sw1, sw2;
     String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token;
     Playlist oneSongPlaylist, fullPlaylist;
     BuildSpotifyPlaylistAPI buildSpotifyPlaylistAPI1, buildSpotifyPlaylistAPI2;
 
-    void initData() throws IOException, InterruptedException {
+    void initData() {
         token = "insert token here";
 
         iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
@@ -30,13 +29,13 @@ public class ImportCommandTest {
         fullPlaylist = new Playlist("Full Playlist", "Emo mania", true);
         buildSpotifyPlaylistAPI2 = new BuildSpotifyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist, token);
 
-        app1 = new ImportCommand();
+        app1 = new ExecuteCommand();
         cmd1 = new CommandLine(app1);
         sw1 = new StringWriter();
         cmd1.setOut(new PrintWriter(sw1));
         exitCode1 = cmd1.execute("--file", iTunesXMLFileOneSong, "--playlist", "One Song Playlist");
 
-        app2 = new ImportCommand();
+        app2 = new ExecuteCommand();
         cmd2 = new CommandLine(app2);
         sw2 = new StringWriter();
         cmd2.setOut(new PrintWriter(sw2));
@@ -44,7 +43,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void itCreatesAnInstantiatedPlaylist() throws IOException, InterruptedException {
+    public void itCreatesAnInstantiatedPlaylist() {
         initData();
         assertThat(app1.createPlaylist().getDescription()).isEqualTo(null);
         assertThat(app1.createPlaylist().getName()).isEqualTo("One Song Playlist");
@@ -53,14 +52,5 @@ public class ImportCommandTest {
         assertThat(app2.createPlaylist().getDescription()).isEqualTo("Emo mania");
         assertThat(app2.createPlaylist().getName()).isEqualTo("Full Playlist");
         assertThat(app2.createPlaylist().isPublic()).isTrue();
-    }
-
-    @Test
-    public void itCreatesAnInstantiatedBuildSpotifyPlaylistAPI() throws IOException, InterruptedException {
-        initData();
-        assertThat(app1.createBuildSpotifyPlaylistAPI().getXmlFile())
-                .isEqualTo(iTunesXMLFileOneSong);
-        assertThat(app2.createBuildSpotifyPlaylistAPI().getXmlFile())
-                .isEqualTo(iTunesXMLFileFullPlaylist);
     }
 }

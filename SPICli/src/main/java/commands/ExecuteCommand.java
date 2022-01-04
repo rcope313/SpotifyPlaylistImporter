@@ -12,13 +12,13 @@ public class ExecuteCommand implements Runnable {
     @CommandLine.Spec
     CommandLine.Model.CommandSpec spec;
     @CommandLine.Option(names = {"-f", "--file"}, required = true)
-    public String xmlFile = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
+    public String xmlFile;
     @CommandLine.Option(names = {"-pn", "--playlist"}, required = true)
     public String playlistName = "name";
     @CommandLine.Option(names = {"-d", "--description"})
-    public String playlistDescription = "description";
+    public String playlistDescription;
     @CommandLine.Option(names = {"-p", "--public"})
-    public boolean playlistIsPublic = true;
+    public boolean playlistIsPublic;
     private final RequestUserAuth requestUserAuth = new RequestUserAuth();
     private final HttpServerAuth httpServerAuth = new HttpServerAuth();
 
@@ -29,6 +29,8 @@ public class ExecuteCommand implements Runnable {
 
     @Override
     public void run() {
+        // ** use to create tests
+        // spec.commandLine().getOut().println(this);
         try {
             displayAuthUrl();
             createBuildSpotifyPlaylistAPI().addSpotifyTracksToPlaylist();

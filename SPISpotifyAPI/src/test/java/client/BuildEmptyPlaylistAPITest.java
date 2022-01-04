@@ -2,6 +2,7 @@ package client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Playlist;
+import models.SpotifyUser;
 import org.junit.Test;
 import java.io.IOException;
 import static org.assertj.core.api.Assertions.*;
@@ -11,9 +12,10 @@ public class BuildEmptyPlaylistAPITest {
     String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token;
     BuildEmptyPlaylistAPI buildEmptyOneSongPlaylist, buildEmptyFullPlaylist;
     Playlist oneSongPlaylist, fullPlaylist;
+    SpotifyUser user1;
 
     void initData() {
-        token = "insert token here";
+        token = "BQDHAWNMnnvLADiGh_6KMAib-O9qzEydUFpqUHXhizDLKWX8o-HOlGqeNChA1_wT_9YqzUONWTnyuBUhZtLlvrPfy2pey3K37gatXnO71MjnZc7fX-89GqBVaQqdV6a4HT240b3C10rGaVzfkv769coeu06UkdsZEmtKXgoaL7nBqhSZCX7twxcRAzN1d1KZBKplpxFn2JBQe5qsFRFWHMc";
 
         iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
         iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
@@ -23,9 +25,12 @@ public class BuildEmptyPlaylistAPITest {
 
         buildEmptyOneSongPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileOneSong, oneSongPlaylist, token);
         buildEmptyFullPlaylist = new BuildEmptyPlaylistAPI(iTunesXMLFileFullPlaylist, fullPlaylist, token);
+
+        user1 = new SpotifyUser("1287343652");
     }
 
     @Test
+    //this won't pass if other tests pass
     public void itThrowsIllegalStateExceptionWithInvalidOrExpiredAccessToken() {
         this.initData();
         assertThatThrownBy(()
@@ -63,6 +68,12 @@ public class BuildEmptyPlaylistAPITest {
                 .getPlaylistURI(jsonNewPlaylist2)
                 .getValue().length())
                 .isEqualTo(22);
+    }
+
+    @Test
+    public void itGetsCurrentUsersProfile() throws IOException, InterruptedException {
+        this.initData();
+        assertThat(buildEmptyOneSongPlaylist.getSpotifyUser()).usingRecursiveComparison().isEqualTo(user1);
     }
 
     @Test

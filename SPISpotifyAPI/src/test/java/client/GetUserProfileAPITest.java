@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class GetUserProfileAPITest {
     String mockXMLFileString, token;
-    GetUserProfileAPI searchItemAPIOneSong, searchItemAPIFullPlaylist;
+    GetUserProfileAPI getUserProfile;
     Playlist mockPlaylist;
     SpotifyUser user1;
 
@@ -19,8 +19,7 @@ public class GetUserProfileAPITest {
         mockXMLFileString = "file.xml";
         mockPlaylist = new Playlist("name", "description", false);
 
-        searchItemAPIOneSong = new GetUserProfileAPI(mockXMLFileString, mockPlaylist, token);
-        searchItemAPIFullPlaylist = new GetUserProfileAPI(mockXMLFileString, mockPlaylist, token);
+        getUserProfile = new GetUserProfileAPI(mockXMLFileString, mockPlaylist, token);
 
         user1 = new SpotifyUser("1287343652");
     }
@@ -28,6 +27,6 @@ public class GetUserProfileAPITest {
     @Test
     public void itGetsCurrentUsersProfile() throws IOException, InterruptedException {
         this.initData();
-        assertThat(searchItemAPIFullPlaylist.getCurrentUsersProfile()).usingRecursiveComparison().isEqualTo(user1);
+        assertThat(getUserProfile.getCurrentUsersProfile()).usingRecursiveComparison().isEqualTo(user1);
     }
 }

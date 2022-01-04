@@ -3,6 +3,7 @@ package client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Playlist;
 import models.SpotifyPlaylistID;
+import models.SpotifyUser;
 import org.assertj.core.util.VisibleForTesting;
 
 import java.io.IOException;
@@ -31,11 +32,10 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
         return this.getObjectMapper().readValue(playlistResponseBody, SpotifyPlaylistID.class);
     }
 
-    // is this hard coded??
     @VisibleForTesting
     String createNewPlaylist(String jsonPlaylist) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.spotify.com/v1/users/1287343652/playlists"))
+                .uri(URI.create("https://api.spotify.com/v1/users/" + getSpotifyUser().getId() + "/playlists"))
                 .header("Authorization", "Bearer " + this.getToken())
                 .POST(HttpRequest
                         .BodyPublishers
@@ -49,10 +49,15 @@ class BuildEmptyPlaylistAPI extends SpotifyClient{
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
         if (response.statusCode() == 401) {
             throw new IllegalStateException("Access token invalid or expired. Please reauthenticate");
         }
         return response.body();
+    }
+
+    public SpotifyUser getSpotifyUser() throws IOException, InterruptedException {
+        return new GetUserProfileAPI(getXmlFile(), getPlaylist(), getToken()).getCurrentUsersProfile();
     }
 
     @VisibleForTesting

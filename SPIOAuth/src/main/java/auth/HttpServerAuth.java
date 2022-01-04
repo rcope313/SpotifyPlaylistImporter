@@ -20,7 +20,7 @@ public class HttpServerAuth {
         this.httpServerConfig = new HttpServerConfig();
     }
 
-    public void start() {
+    public PostResponse start() {
         try {
             var latch = new CountDownLatch(1);
             var server = HttpServer.create(new InetSocketAddress(httpServerConfig.getHost(), httpServerConfig.getPort()), 0);
@@ -36,8 +36,7 @@ public class HttpServerAuth {
             latch.await(httpServerConfig.getTimeout(), TimeUnit.SECONDS);
             server.stop(0);
             System.out.println(CommandLine.Help.Ansi.ON.string("@|bold,fg(green) Success! You are now authenticated!|@"));
-            System.out.print(this.getPostResponse().getAccessToken());
-
+            return this.getPostResponse();
 
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);

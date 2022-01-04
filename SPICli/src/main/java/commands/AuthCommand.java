@@ -2,6 +2,7 @@ package commands;
 
 import auth.HttpServerAuth;
 import auth.RequestUserAuth;
+import models.PostResponse;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -39,8 +40,9 @@ public class AuthCommand implements Runnable {
     }
 
 
-    private void handleRedirectUri() throws IOException {
-         getHttpServerAuth().start();
+    private PostResponse handleRedirectUri() throws IOException {
+         var response = getHttpServerAuth().start();
+         return response;
     }
     private void displayAuthUrl() throws IOException, InterruptedException {
         System.out.println("Click on the link to start authentication:\n");

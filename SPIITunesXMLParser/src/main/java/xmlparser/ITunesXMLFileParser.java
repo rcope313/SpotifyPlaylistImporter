@@ -25,7 +25,15 @@ public class ITunesXMLFileParser {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-        return handler.getHandlerResultTrackList();
+        return checkParseResult(handler.getHandlerResultTrackList());
+    }
+
+    private static ArrayList<Track> checkParseResult(ArrayList<Track> resultTrackList) {
+        if (resultTrackList.size() > 0) {
+            return resultTrackList;
+        } else {
+            throw new IllegalStateException("Unable to parse tracks from given file. Please check path of file and try again.");
+        }
     }
 
     private static InputStream getXMLFileAsStream(String fileName) throws FileNotFoundException {

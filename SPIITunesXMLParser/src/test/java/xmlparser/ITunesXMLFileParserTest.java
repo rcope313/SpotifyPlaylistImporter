@@ -16,8 +16,11 @@ public class ITunesXMLFileParserTest {
 
     ArrayList<Track>
             p1, p2;
+    String errorMessage;
 
     void initData() {
+        errorMessage = "Unable to parse tracks from given file. Please check path of file and try again.";
+
         myImmortal =
                 new Track("My Immortal (Band Version)",
                         "Evanescence",
@@ -150,6 +153,16 @@ public class ITunesXMLFileParserTest {
                 superman, timeWontLetMeGo, heyThereDelilah, chasingCars, bestOfYou, someoneToLove,
                 theKill, theGreatEscape, starlight, hereInYourArms, alreadyOver, breatheIntoMe,
                 famousLastWords, yourGuardianAngel, onlyOne, oceanAvenue));
+    }
+
+    @Test
+    public void itThrowsExceptionWhenIllegalXMLTypeInserted() {
+        this.initData();
+
+        assertThatThrownBy(() -> ITunesXMLFileParser.parse("/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/IncorrectFileType.json"))
+                .isInstanceOf(IllegalStateException.class).hasMessageContaining(errorMessage);
+        assertThatThrownBy(() -> ITunesXMLFileParser.parse("/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/IncorrectXMLFormat.xml"))
+                .isInstanceOf(IllegalStateException.class).hasMessageContaining(errorMessage);
     }
 
     @Test

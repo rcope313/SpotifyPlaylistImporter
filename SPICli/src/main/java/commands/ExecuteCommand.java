@@ -9,16 +9,14 @@ import picocli.CommandLine;
 
 @CommandLine.Command(name = "execute")
 public class ExecuteCommand implements Runnable {
-    @CommandLine.Spec
-    CommandLine.Model.CommandSpec spec;
-    @CommandLine.Option(names = {"-f", "--file"}, required = true)
+    @CommandLine.Parameters(index = "0")
     public String xmlFile;
-    @CommandLine.Option(names = {"-pn", "--playlist"}, required = true)
+    @CommandLine.Parameters(index = "1")
     public String playlistName = "name";
     @CommandLine.Option(names = {"-d", "--description"})
     public String playlistDescription;
     @CommandLine.Option(names = {"-p", "--public"})
-    public boolean playlistIsPublic;
+    public boolean isPublic;
     private final RequestUserAuth requestUserAuth = new RequestUserAuth();
     private final HttpServerAuth httpServerAuth = new HttpServerAuth();
 
@@ -29,8 +27,6 @@ public class ExecuteCommand implements Runnable {
 
     @Override
     public void run() {
-        // ** use to create tests
-        // spec.commandLine().getOut().println(this);
         try {
             displayAuthUrl();
             createBuildSpotifyPlaylistAPI().addSpotifyTracksToPlaylist();
@@ -44,7 +40,7 @@ public class ExecuteCommand implements Runnable {
     }
 
     Playlist createPlaylist() {
-        return new Playlist (this.getPlaylistName(), this.getPlaylistDescription(), this.isPlaylistIsPublic());
+        return new Playlist (this.getPlaylistName(), this.getPlaylistDescription(), this.isPublic());
     }
 
     private PostResponse handleRedirectUriAndReceiveAccessToken() {
@@ -68,8 +64,8 @@ public class ExecuteCommand implements Runnable {
         return playlistDescription;
     }
 
-    public boolean isPlaylistIsPublic() {
-        return playlistIsPublic;
+    public boolean isPublic() {
+        return isPublic;
     }
 
     public RequestUserAuth getRequestUserAuth() {

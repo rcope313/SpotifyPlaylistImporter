@@ -1,6 +1,7 @@
 package xmlparser;
 
 import models.Track;
+import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,10 +17,18 @@ public class ITunesXMLFileParserTest {
 
     ArrayList<Track>
             p1, p2;
-    String errorMessage;
+    String
+            errorMessage, pathToIncorrectFileType,
+            pathToIncorrectXMLFormat, pathToFullPlaylistXml,
+            pathToOneSongPlaylistXml;
 
-    void initData() {
+    @Before
+    public void initData() {
         errorMessage = "Unable to parse tracks from given file. Please check path of file and try again.";
+        pathToIncorrectFileType = "src/test/resources/IncorrectFileType.json";
+        pathToIncorrectXMLFormat = "src/test/resources/IncorrectXMLFormat.xml";
+        pathToFullPlaylistXml = "src/test/resources/ITunesXMLFileFullPlaylist.xml";
+        pathToOneSongPlaylistXml = "src/test/resources/ITunesXMLFileOneSong.xml";
 
         myImmortal =
                 new Track("My Immortal (Band Version)",
@@ -157,26 +166,22 @@ public class ITunesXMLFileParserTest {
 
     @Test
     public void itThrowsExceptionWhenIllegalXMLTypeInserted() {
-        this.initData();
-
-        assertThatThrownBy(() -> ITunesXMLFileParser.parse("/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/IncorrectFileType.json"))
+        assertThatThrownBy(() -> ITunesXMLFileParser.parse(pathToIncorrectFileType))
                 .isInstanceOf(IllegalStateException.class).hasMessageContaining(errorMessage);
-        assertThatThrownBy(() -> ITunesXMLFileParser.parse("/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/IncorrectXMLFormat.xml"))
+        assertThatThrownBy(() -> ITunesXMLFileParser.parse(pathToIncorrectXMLFormat))
                 .isInstanceOf(IllegalStateException.class).hasMessageContaining(errorMessage);
     }
 
     @Test
     public void itReadsITunesXMLFileAndBuildsArrayListOfTracks() {
-        this.initData();
-
         ArrayList<Track> instantiatedTrackList1 = ITunesXMLFileParser.parse
-                ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml");
+                (pathToOneSongPlaylistXml);
         for (int idx = 0; idx < p1.size(); idx++) {
             assertThat(instantiatedTrackList1.get(idx)).isEqualTo(p1.get(idx));
         }
 
         ArrayList<Track> instantiatedTrackList2 = ITunesXMLFileParser.parse
-                ("/Users/rachelcope/Documents/ITunesPlaylistToSpotifyPlaylist/ITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml");
+                (pathToFullPlaylistXml);
         for (int idx = 0; idx < p2.size(); idx++) {
             assertThat(instantiatedTrackList2.get(idx))
                     .withFailMessage("Idx %s is incorrect", idx)

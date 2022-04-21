@@ -16,10 +16,10 @@ public class ExecuteCommandTest {
 
     @Before
     public void initData() {
-        iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
+        iTunesXMLFileOneSong = "ITunesXMLFileOneSong.xml";
         oneSongPlaylist = new Playlist("One Song Playlist", null, false);
 
-        iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
+        iTunesXMLFileFullPlaylist = "ITunesXMLFileFullPlaylist.xml";
         fullPlaylist = new Playlist("Full Playlist", "Emo mania", true);
 
         mockApp1 = mock(ExecuteCommand.class);

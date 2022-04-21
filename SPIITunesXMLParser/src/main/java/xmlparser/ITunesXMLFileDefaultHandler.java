@@ -3,7 +3,6 @@ package xmlparser;
 import models.Track;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
-
 import java.util.ArrayList;
 
 public class ITunesXMLFileDefaultHandler extends DefaultHandler {

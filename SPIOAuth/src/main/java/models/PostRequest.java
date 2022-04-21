@@ -1,25 +1,44 @@
 package models;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class PostRequest {
-    private final String grantType;
     private final String code;
-    private final String redirectUri;
-    private final String clientId;
-    private final String clientSecret;
 
     public PostRequest(String code) {
-        this.grantType = "authorization_code";
         this.code = code;
-        this.redirectUri = "http%3A%2F%2Flocalhost%3A2000%2Fauthorize";
-        this.clientId = "58f5ea655fc64389ae8f53047aa14201";
-        this.clientSecret = "fe103f0d879048da899baea87e5402a9";
     }
 
-    public String buildJsonBodyParameter() {
-        return "grant_type=" + grantType
-                + "&redirect_uri=" + redirectUri
-                + "&client_id=" + clientId
-                + "&client_secret=" + clientSecret
+    public String buildJsonBodyParameter() throws IOException {
+        InputStream inputStream = null;
+        String[] strArr = new String[4];
+        try {
+            Properties prop = new Properties();
+            String propFileName = "config.properties";
+            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+            if (inputStream != null) {
+                prop.load(inputStream);
+            } else {
+                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+            }
+            strArr[0] = prop.getProperty("grantType");
+            strArr[1] = prop.getProperty("redirectUri");
+            strArr[2] = prop.getProperty("clientId");
+            strArr[3] = prop.getProperty("clientSecret");
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        } finally {
+            assert inputStream != null;
+            inputStream.close();
+        }
+        return "grant_type=" + strArr[0]
+                + "&redirect_uri=" + strArr[1]
+                + "&client_id=" + strArr[2]
+                + "&client_secret=" + strArr[3]
                 + "&code=" + code;
     }
+
 }

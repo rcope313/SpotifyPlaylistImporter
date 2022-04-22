@@ -5,7 +5,6 @@ import models.Playlist;
 import models.SpotifyPlaylistID;
 import models.SpotifyUser;
 import org.assertj.core.util.VisibleForTesting;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,7 +12,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-class BuildEmptyPlaylistAPI extends SpotifyClient{
+class BuildEmptyPlaylistAPI extends SpotifyClient {
     private final String token;
 
     BuildEmptyPlaylistAPI(String xmlFile, Playlist playlist, String token) {

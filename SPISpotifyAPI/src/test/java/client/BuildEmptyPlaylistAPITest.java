@@ -3,22 +3,64 @@ package client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Playlist;
 import models.SpotifyUser;
+import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 import static org.assertj.core.api.Assertions.*;
 
 public class BuildEmptyPlaylistAPITest {
     
-    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token;
+    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, token, createOneSongPlaylistGetResponse;
     BuildEmptyPlaylistAPI buildEmptyOneSongPlaylist, buildEmptyFullPlaylist;
     Playlist oneSongPlaylist, fullPlaylist;
     SpotifyUser user1;
 
-    void initData() {
+    @Before
+    public void initData() {
         token = "BQDHAWNMnnvLADiGh_6KMAib-O9qzEydUFpqUHXhizDLKWX8o-HOlGqeNChA1_wT_9YqzUONWTnyuBUhZtLlvrPfy2pey3K37gatXnO71MjnZc7fX-89GqBVaQqdV6a4HT240b3C10rGaVzfkv769coeu06UkdsZEmtKXgoaL7nBqhSZCX7twxcRAzN1d1KZBKplpxFn2JBQe5qsFRFWHMc";
 
-        iTunesXMLFileOneSong = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileOneSong.xml";
-        iTunesXMLFileFullPlaylist = "/Users/rachelcope/Documents/SpotifyPlaylistImporter/SPIITunesXMLParser/src/main/resources/ITunesXMLFileFullPlaylist.xml";
+        iTunesXMLFileOneSong = "src/main/resources/ITunesXMLFileOneSong.xml";
+        iTunesXMLFileFullPlaylist = "src/main/resources/ITunesXMLFileFullPlaylist.xml";
+
+        createOneSongPlaylistGetResponse = "{\n" +
+                "  \"collaborative\": false,\n" +
+                "  \"description\": \"New playlist description\",\n" +
+                "  \"external_urls\": {\n" +
+                "    \"spotify\": \"https://open.spotify.com/playlist/5nVVb5mbCVRTbHLpPrUghy\"\n" +
+                "  },\n" +
+                "  \"followers\": {\n" +
+                "    \"href\": null,\n" +
+                "    \"total\": 0\n" +
+                "  },\n" +
+                "  \"href\": \"https://api.spotify.com/v1/playlists/5nVVb5mbCVRTbHLpPrUghy\",\n" +
+                "  \"id\": \"5nVVb5mbCVRTbHLpPrUghy\",\n" +
+                "  \"images\": [],\n" +
+                "  \"name\": \"One Song Playlist\",\n" +
+                "  \"owner\": {\n" +
+                "    \"display_name\": \"Rachel Cope\",\n" +
+                "    \"external_urls\": {\n" +
+                "      \"spotify\": \"https://open.spotify.com/user/1287343652\"\n" +
+                "    },\n" +
+                "    \"href\": \"https://api.spotify.com/v1/users/1287343652\",\n" +
+                "    \"id\": \"1287343652\",\n" +
+                "    \"type\": \"user\",\n" +
+                "    \"uri\": \"spotify:user:1287343652\"\n" +
+                "  },\n" +
+                "  \"primary_color\": null,\n" +
+                "  \"public\": false,\n" +
+                "  \"snapshot_id\": \"MSxlM2FhZGYzZTM4OWQxNWIwNTE2ODM5YzhjMmIxNDk4NmMxMjczYTY1\",\n" +
+                "  \"tracks\": {\n" +
+                "    \"href\": \"https://api.spotify.com/v1/playlists/5nVVb5mbCVRTbHLpPrUghy/tracks\",\n" +
+                "    \"items\": [],\n" +
+                "    \"limit\": 100,\n" +
+                "    \"next\": null,\n" +
+                "    \"offset\": 0,\n" +
+                "    \"previous\": null,\n" +
+                "    \"total\": 0\n" +
+                "  },\n" +
+                "  \"type\": \"playlist\",\n" +
+                "  \"uri\": \"spotify:playlist:5nVVb5mbCVRTbHLpPrUghy\"\n" +
+                "}";
 
         oneSongPlaylist = new Playlist("One Song Playlist", "A playlist of one song", true);
         fullPlaylist = new Playlist("Full Playlist", "a playlist of 20 songs", false);
@@ -30,55 +72,15 @@ public class BuildEmptyPlaylistAPITest {
     }
 
     @Test
-    //this won't pass if other tests pass
-    public void itThrowsIllegalStateExceptionWithInvalidOrExpiredAccessToken() {
-        this.initData();
-        assertThatThrownBy(()
-                -> buildEmptyFullPlaylist.buildSpotifyEmptyPlaylistAndSpotifyPlaylistID())
-                .isInstanceOf(IllegalStateException.class);
-    }
-
-    @Test
-    public void itBuildsEmptyPlaylistAndSpotifyPlaylistID() throws IOException, InterruptedException {
-        this.initData();
+    public void itGetsPlaylistURI() throws IOException {
         assertThat(buildEmptyOneSongPlaylist
-                .buildSpotifyEmptyPlaylistAndSpotifyPlaylistID()
-                .getValue().length())
-                .isEqualTo(22);
-
-        assertThat(buildEmptyFullPlaylist
-                .buildSpotifyEmptyPlaylistAndSpotifyPlaylistID()
-                .getValue().length())
-                .isEqualTo(22);
-    }
-
-    @Test
-    public void itRequestsCreatePlaylistAndReceivesHTTPPostResponseBody() throws IOException, InterruptedException {
-        this.initData();
-        String jsonPlaylist1 = buildEmptyOneSongPlaylist.serializePlaylistToJsonString();
-        String jsonNewPlaylist1 = buildEmptyOneSongPlaylist.createNewPlaylist(jsonPlaylist1);
-        assertThat(buildEmptyOneSongPlaylist
-                .getPlaylistURI(jsonNewPlaylist1)
-                .getValue().length())
-                .isEqualTo(22);
-
-        String jsonPlaylist2 = buildEmptyFullPlaylist.serializePlaylistToJsonString();
-        String jsonNewPlaylist2 = buildEmptyFullPlaylist.createNewPlaylist(jsonPlaylist2);
-        assertThat(buildEmptyFullPlaylist
-                .getPlaylistURI(jsonNewPlaylist2)
-                .getValue().length())
-                .isEqualTo(22);
-    }
-
-    @Test
-    public void itGetsCurrentUsersProfile() throws IOException, InterruptedException {
-        this.initData();
-        assertThat(buildEmptyOneSongPlaylist.getSpotifyUser()).usingRecursiveComparison().isEqualTo(user1);
+                .getPlaylistURI(createOneSongPlaylistGetResponse)
+                .getValue())
+                .isEqualTo("5nVVb5mbCVRTbHLpPrUghy");
     }
 
     @Test
     public void itSerializesJsonStringToPlaylist() throws JsonProcessingException {
-        this.initData();
         String jsonString1 = buildEmptyOneSongPlaylist.serializePlaylistToJsonString();
         assertThat(jsonString1).isEqualTo(
                 "{\"name\":\"One Song Playlist\"," +

@@ -5,8 +5,11 @@ import models.Playlist;
 import models.SpotifyUser;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import java.io.IOException;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class BuildEmptyPlaylistAPITest {
     
@@ -72,10 +75,15 @@ public class BuildEmptyPlaylistAPITest {
     }
 
     @Test
-    public void itGetsPlaylistURI() throws IOException {
-        assertThat(buildEmptyOneSongPlaylist
-                .getPlaylistURI(createOneSongPlaylistGetResponse)
-                .getValue())
+    public void itBuildsEmptyPlaylistAndSpotifyPlaylistID() throws IOException, InterruptedException {
+        BuildEmptyPlaylistAPI api = spy(buildEmptyOneSongPlaylist);
+        when(api.serializePlaylistToJsonString()).thenReturn("");
+
+        Mockito.doReturn("jsonString").when(api).serializePlaylistToJsonString();
+        Mockito.doReturn(createOneSongPlaylistGetResponse).when(api).createNewPlaylist("jsonString");
+
+        assertThat(api
+                .buildSpotifyEmptyPlaylistAndSpotifyPlaylistID().getValue())
                 .isEqualTo("5nVVb5mbCVRTbHLpPrUghy");
     }
 

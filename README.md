@@ -29,7 +29,7 @@ predefined redirect url. The application parses the authorization
 code from the redirect uri. From there, the application continues
 through authorization code flow as mentioned.
 
-## Using Spotify Playlist Importer
+## Using SpotifyPlaylistImporter
 SpotifyPlaylistImporter supports the single sub-command ```execute```,
 which handles the entire application flow.
 - Jar File: SPICli/target/Cli-1.0-SNAPSHOT-jar-with-dependencies.jar

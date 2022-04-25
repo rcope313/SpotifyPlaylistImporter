@@ -1,6 +1,7 @@
 package models;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,7 +10,8 @@ public class SpotifyUserTest {
     String jsonResponse1;
     SpotifyUser user1;
 
-    void initData() {
+    @Before
+    public void initData() {
         jsonResponse1 = "{\n" +
                 "  \"country\": \"string\",\n" +
                 "  \"display_name\": \"string\",\n" +
@@ -43,7 +45,6 @@ public class SpotifyUserTest {
 
     @Test
     public void itDeserializesJsonValueIntoPlayListIDBean() throws IOException {
-        this.initData();
         SpotifyUser instantiatedUser = new ObjectMapper().readValue(jsonResponse1, SpotifyUser.class);
         assertThat(instantiatedUser.getId()).isEqualTo(user1.getId());
     }

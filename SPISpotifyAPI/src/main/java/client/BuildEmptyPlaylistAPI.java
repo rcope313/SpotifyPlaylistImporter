@@ -50,7 +50,7 @@ class BuildEmptyPlaylistAPI extends SpotifyClient {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 401) {
-            throw new IllegalStateException("Access token invalid or expired. Please reauthenticate");
+            throw new IllegalStateException("Access token invalid or expired. Please re-authenticate");
         }
         return response.body();
     }

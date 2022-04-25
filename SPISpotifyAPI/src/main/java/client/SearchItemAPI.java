@@ -17,7 +17,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 class SearchItemAPI extends SpotifyClient {
-
     private final String token;
 
     SearchItemAPI(String xmlFile, Playlist playlist, String token) {
@@ -25,14 +24,14 @@ class SearchItemAPI extends SpotifyClient {
         this.token = token;
     }
 
-    String buildJsonStringOfListOfSpotifyTrackURI() throws IOException {
-        ArrayList<String> spotifyTrackJsonStringList = buildListOfJsonStringByItemSearchAPI(ITunesXMLFileParser.parse(getXmlFile()));
-        ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = buildListOfSpotifyTrackURIFromListOfJsonString(spotifyTrackJsonStringList);
-        return buildJsonStringOfListOfSpotifyTrackURI(listOfSpotifyTrackURI);
+    String buildJsonSpotifyTrackURIList() throws IOException {
+        ArrayList<String> spotifyTrackJsonStringList = buildJsonTrackListByItemSearchAPI();
+        ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = buildSpotifyTrackURIListFromJsonTrackList(spotifyTrackJsonStringList);
+        return buildJsonSpotifyTrackURIList(listOfSpotifyTrackURI);
     }
 
     @VisibleForTesting
-    String buildJsonStringOfListOfSpotifyTrackURI(ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI) throws JsonProcessingException {
+    String buildJsonSpotifyTrackURIList(ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI) throws JsonProcessingException {
         ObjectNode rootNode = this.getObjectMapper().createObjectNode();
         ArrayNode arrayNode = rootNode.putArray("uris");
         listOfSpotifyTrackURI.forEach((aSpotifyTrackURI) -> arrayNode.add(aSpotifyTrackURI.getUriName()));
@@ -41,7 +40,7 @@ class SearchItemAPI extends SpotifyClient {
     }
 
     @VisibleForTesting
-    ArrayList<SpotifyTrackURI> buildListOfSpotifyTrackURIFromListOfJsonString(ArrayList<String> spotifyTrackJsonStringList) throws IOException {
+    ArrayList<SpotifyTrackURI> buildSpotifyTrackURIListFromJsonTrackList(ArrayList<String> spotifyTrackJsonStringList) throws IOException {
         ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = new ArrayList<>();
         for (String aJsonString : spotifyTrackJsonStringList ) {
             listOfSpotifyTrackURI.add(this.getObjectMapper().readValue(aJsonString, SpotifyTrackURI.class));
@@ -50,14 +49,13 @@ class SearchItemAPI extends SpotifyClient {
     }
 
     @VisibleForTesting
-    ArrayList<String> buildListOfJsonStringByItemSearchAPI(ArrayList<Track> currentTracks) {
+    ArrayList<String> buildJsonTrackListByItemSearchAPI() {
+        ArrayList<Track> tracks = ITunesXMLFileParser.parse(getXmlFile());
         ArrayList<String> jsonTrackList = new ArrayList<>();
-        currentTracks.forEach((track) -> {
+        tracks.forEach((track) -> {
             try {
-                jsonTrackList.add(receiveAJsonStringByItemSearchAPI(track));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+                jsonTrackList.add(getJsonTrackByItemSearchAPI(track));
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         });
@@ -65,8 +63,7 @@ class SearchItemAPI extends SpotifyClient {
     }
 
     @VisibleForTesting
-    String receiveAJsonStringByItemSearchAPI(Track track) throws IOException, InterruptedException {
-
+    String getJsonTrackByItemSearchAPI(Track track) throws IOException, InterruptedException {
         String trackNameURL = uRLify(track.getTrackName());
         String artistNameURL = uRLify(track.getArtistName());
 

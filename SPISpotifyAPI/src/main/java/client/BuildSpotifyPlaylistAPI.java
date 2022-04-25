@@ -47,7 +47,7 @@ public class BuildSpotifyPlaylistAPI extends SpotifyClient{
     }
 
     public String getSpotifyTrackJsonStringList() throws IOException {
-        return new SearchItemAPI(getXmlFile(), getPlaylist(), getToken()).buildJsonStringOfListOfSpotifyTrackURI();
+        return new SearchItemAPI(getXmlFile(), getPlaylist(), getToken()).buildJsonSpotifyTrackURIList();
     }
 
     public String getToken() {

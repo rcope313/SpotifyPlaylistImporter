@@ -1,10 +1,8 @@
 package client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Playlist;
 import models.SpotifyUser;
 import org.assertj.core.util.VisibleForTesting;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;

@@ -8,7 +8,7 @@ import java.util.concurrent.Callable;
         name = "myapp",
         mixinStandardHelpOptions = true,
         version = "1.0")
-class SpotifyCli implements Callable<Integer> {
+public class SpotifyCli implements Callable<Integer> {
 
     @Override
     public Integer call() { // business logic

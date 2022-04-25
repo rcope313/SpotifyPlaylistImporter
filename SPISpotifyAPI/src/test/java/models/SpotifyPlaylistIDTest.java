@@ -7,7 +7,6 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.*;
 
 public class SpotifyPlaylistIDTest {
-
     String jsonPlaylistOutputExample;
 
     @Before

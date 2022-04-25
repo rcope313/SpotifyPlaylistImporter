@@ -13,14 +13,25 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.spy;
 
 public class SearchItemAPITest {
-    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, jsonMyImmortal, jsonBringMeToLife;
-    SearchItemAPI searchItemAPIOneSong, searchItemAPITwoSong;
-    Playlist oneSongPlaylist, twoSongPlaylist;
+    String iTunesXMLFileOneSong, iTunesXMLFileFullPlaylist, jsonMyImmortal, jsonBringMeToLife, jsonNoResults;
+    SearchItemAPI searchItemAPIOneSong, searchItemAPITwoSong, searchItemAPINoSongs;
+    Playlist oneSongPlaylist, twoSongPlaylist, noSongPlaylist;
 
     @Before
     public void initData() {
         iTunesXMLFileOneSong = "src/test/resources/ITunesXMLFileOneSong.xml";
         iTunesXMLFileFullPlaylist = "src/test/resources/ITunesXMLFileFullPlaylist.xml";
+        jsonNoResults = "{\n" +
+                "  \"tracks\": {\n" +
+                "    \"href\": \"https://api.spotify.com/v1/search?query=blabhablahadl&type=track&locale=en-US%2Cen%3Bq%3D0.9&offset=0&limit=1\",\n" +
+                "    \"items\": [],\n" +
+                "    \"limit\": 1,\n" +
+                "    \"next\": null,\n" +
+                "    \"offset\": 0,\n" +
+                "    \"previous\": null,\n" +
+                "    \"total\": 0\n" +
+                "  }\n" +
+                "}";
         jsonMyImmortal = "{\n" +
                 "  \"tracks\": {\n" +
                 "    \"href\": \"https://api.spotify.com/v1/search?query=track%3Amy+immortal&type=track&locale=en-US%2Cen%3Bq%3D0.9&offset=0&limit=1\",\n" +
@@ -913,19 +924,28 @@ public class SearchItemAPITest {
 
         oneSongPlaylist = new Playlist("One Song Playlist", "A playlist of one song", true);
         twoSongPlaylist = new Playlist("Two Song Playlist", "a playlist of 2 songs", false);
+        noSongPlaylist = new Playlist("No Song Playlist", "a playlist of no songs", false);
 
         searchItemAPIOneSong = new SearchItemAPI(iTunesXMLFileOneSong, oneSongPlaylist, "token");
         searchItemAPITwoSong = new SearchItemAPI(iTunesXMLFileFullPlaylist, twoSongPlaylist, "token");
+        searchItemAPINoSongs = new SearchItemAPI(iTunesXMLFileFullPlaylist, noSongPlaylist, "token");
     }
 
     @Test
     public void itBuildsJsonSpotifyTrackURIList() throws IOException {
         SearchItemAPI api1 = spy(searchItemAPIOneSong);
         Mockito.doReturn(new ArrayList<>(List.of(jsonMyImmortal))).when(api1).buildJsonTrackListByItemSearchAPI();
-        assertThat(api1.buildJsonSpotifyTrackURIList()).isEqualTo("{\"uris\":[\"spotify:track:4UzVcXufOhGUwF56HT7b8M\"]}");
+        assertThat(api1.buildJsonSpotifyTrackURIList())
+                .isEqualTo("{\"uris\":[\"spotify:track:4UzVcXufOhGUwF56HT7b8M\"]}");
 
         SearchItemAPI api2 = spy(searchItemAPITwoSong);
         Mockito.doReturn(new ArrayList<>(List.of(jsonMyImmortal, jsonBringMeToLife))).when(api2).buildJsonTrackListByItemSearchAPI();
-        assertThat(api2.buildJsonSpotifyTrackURIList()).isEqualTo("{\"uris\":[\"spotify:track:4UzVcXufOhGUwF56HT7b8M\",\"spotify:track:0COqiPhxzoWICwFCS4eZcp\"]}");
+        assertThat(api2.buildJsonSpotifyTrackURIList())
+                .isEqualTo("{\"uris\":[\"spotify:track:4UzVcXufOhGUwF56HT7b8M\",\"spotify:track:0COqiPhxzoWICwFCS4eZcp\"]}");
+
+        SearchItemAPI api3 = spy(searchItemAPINoSongs);
+        Mockito.doReturn(new ArrayList<>(List.of(jsonNoResults))).when(api3).buildJsonTrackListByItemSearchAPI();
+        assertThat(api3.buildJsonSpotifyTrackURIList())
+                .isEqualTo("{\"uris\":[]}");
     }
 }

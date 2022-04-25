@@ -43,7 +43,10 @@ class SearchItemAPI extends SpotifyClient {
     ArrayList<SpotifyTrackURI> buildSpotifyTrackURIListFromJsonTrackList(ArrayList<String> spotifyTrackJsonStringList) throws IOException {
         ArrayList<SpotifyTrackURI> listOfSpotifyTrackURI = new ArrayList<>();
         for (String aJsonString : spotifyTrackJsonStringList ) {
-            listOfSpotifyTrackURI.add(this.getObjectMapper().readValue(aJsonString, SpotifyTrackURI.class));
+            try {
+                listOfSpotifyTrackURI.add(this.getObjectMapper().readValue(aJsonString, SpotifyTrackURI.class));
+            }
+            catch (NullPointerException ignored) {}
         }
         return listOfSpotifyTrackURI;
     }
